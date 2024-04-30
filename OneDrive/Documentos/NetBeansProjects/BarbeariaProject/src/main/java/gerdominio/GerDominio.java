@@ -1,4 +1,4 @@
-package gertarefas;
+package gerdominio;
 
 import dao.ConexaoHibernate;
 

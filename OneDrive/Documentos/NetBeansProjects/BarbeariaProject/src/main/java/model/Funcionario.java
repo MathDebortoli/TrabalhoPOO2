@@ -15,7 +15,7 @@ public class Funcionario extends Pessoa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dataContratofim;
 
-    @Column(unique = true)
+    @Column(unique = true, length = 30)
     private String email;
 
     @Column

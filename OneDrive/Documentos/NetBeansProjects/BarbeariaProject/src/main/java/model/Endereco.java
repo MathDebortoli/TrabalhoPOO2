@@ -2,6 +2,7 @@ package model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 public class Endereco implements Serializable {
@@ -27,4 +28,5 @@ public class Endereco implements Serializable {
 
     @Column(length = 30)
     private String bairro;
+    
 }

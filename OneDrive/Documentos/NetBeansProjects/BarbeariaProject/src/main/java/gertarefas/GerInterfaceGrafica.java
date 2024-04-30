@@ -1,5 +1,6 @@
 package gertarefas;
 
+import gerdominio.GerDominio;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
 import javax.swing.JDialog;

@@ -26,6 +26,8 @@ public class Pessoa implements Serializable {
 
     @Lob
     private byte[] foto;
-
-    //private Endereco endereco;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idEndereco")
+    private Endereco endereco;
 }

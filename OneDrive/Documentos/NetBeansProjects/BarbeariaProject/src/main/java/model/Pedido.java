@@ -26,7 +26,16 @@ public class Pedido implements Serializable {
     @Column
     private String formaPagamento;
 
-    // Funcionario funcionaro;
-    // private Cliente cliente;
-    // private List<Servico> servicos;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idFuncionario")
+    private Funcionario funcionaro;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idCliente")
+    private Cliente cliente;
+    
+    @ManyToMany(fetch=FetchType.LAZY)
+    @JoinTable(name="Pedido_Servicos", joinColumns = {@JoinColumn (name ="idPedido" ) } ,
+            inverseJoinColumns = {@JoinColumn (name ="idServico" ) })
+    private List<Servico> servicos;
 }
