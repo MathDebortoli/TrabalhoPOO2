@@ -5,13 +5,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Pessoa implements Serializable {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Pessoa implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int idPessoa;
 
-    @Column(name = "nomeCliente", length = 50)
+    @Column(name = "nome", length = 50)
     private String nome;
 
     @Column(length = 14, nullable = false, unique = true)
