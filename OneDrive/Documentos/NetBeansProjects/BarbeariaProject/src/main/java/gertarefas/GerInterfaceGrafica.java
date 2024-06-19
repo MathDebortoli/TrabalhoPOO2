@@ -11,6 +11,7 @@ import view.JdlCadastroFuncionario;
 import view.JdlCadastroPedido;
 import view.JdlCadastroServico;
 import view.JdlConsultarAgenda;
+import view.JdlGerenciarCadastros;
 import view.JdlSobreSistema;
 
 public class GerInterfaceGrafica {
@@ -26,6 +27,7 @@ public class GerInterfaceGrafica {
     private JdlSobreSistema sobresistema = null;
     private JdlConsultarAgenda consultagenda = null;
     private JdlCadastroFuncionario cadfunc = null;
+    private JdlGerenciarCadastros gercad = null;
 
     private GerInterfaceGrafica() {
     }
@@ -57,6 +59,10 @@ public class GerInterfaceGrafica {
         frmprincipal.setVisible(true);
     }
 
+    public GerDominio getGerDom() {
+        return gerDom;
+    }
+
     public void abrirJanCadPedido() {
         abrirJanelaDialog(frmprincipal, cadpedido, JdlCadastroPedido.class);
     }
@@ -79,6 +85,10 @@ public class GerInterfaceGrafica {
 
     public void abrirJanSobreSistema() {
         abrirJanelaDialog(frmprincipal, sobresistema, JdlSobreSistema.class);
+    }
+
+    public void abrirJanGenCadastros() {
+        abrirJanelaDialog(frmprincipal, gercad, JdlGerenciarCadastros.class);
     }
 
     public static void main(String args[]) {

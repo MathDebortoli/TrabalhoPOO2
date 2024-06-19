@@ -19,8 +19,7 @@ public abstract class Pessoa implements Serializable {
     private String cpf;
 
     @Column
-    @Temporal(value = TemporalType.DATE)
-    private Date dataNascimento;
+    private String dataNascimento;
 
     @Column(length = 1)
     private boolean sexo;
@@ -31,4 +30,15 @@ public abstract class Pessoa implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idEndereco")
     private Endereco endereco;
+
+    public Pessoa(String nome, String cpf, String dataNascimento, boolean sexo, byte[] foto, Endereco endereco) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+        this.foto = foto;
+        this.endereco = endereco;
+    }
+    
+    
 }

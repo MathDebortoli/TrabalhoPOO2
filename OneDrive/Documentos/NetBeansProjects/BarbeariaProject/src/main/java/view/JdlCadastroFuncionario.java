@@ -477,7 +477,9 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
         }
         inserirTabela(nome, telefone, cpf, nascimento, sexo, estado, cidade, bairro);
         jPopupMenu1.add(new JScrollPane(table));
-        JOptionPane.showMessageDialog(this, "O Cliente " + nome + " Foi inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        //Funcionario func = new Funcionario(bairro,cidade,cpf,estado);
+        //gerIG.getGerDom().inserirFuncionario(funcionario);
+        JOptionPane.showMessageDialog(this, "O Funcionario " + nome + " Foi inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

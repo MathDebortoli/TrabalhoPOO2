@@ -8,6 +8,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import model.Cliente;
 
 public class JdlCadastroCliente extends javax.swing.JDialog {
 
@@ -75,7 +76,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jBuSalvar = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -312,13 +313,13 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(51, 255, 51));
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton2.setText("Salvar");
-        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jBuSalvar.setBackground(new java.awt.Color(51, 255, 51));
+        jBuSalvar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jBuSalvar.setText("Salvar");
+        jBuSalvar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jBuSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jBuSalvarActionPerformed(evt);
             }
         });
 
@@ -368,7 +369,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(44, 44, 44)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jBuSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3)
                                 .addGap(18, 18, 18)
@@ -403,7 +404,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBuSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -453,32 +454,26 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jBuSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuSalvarActionPerformed
         String nome = jTeNome.getText();
         String cpf = jtfCpf.getText();
         String telefone = jTfTelefone.getText();
         String nascimento = jftNascimento.getText();
         String cidade = jTextCidade.getText();
-        String sexo = "null";
+        boolean sexo;
         if (buttonGroup1.getSelection().getMnemonic() == 'f') {
-            sexo = "Feminino";
+            sexo = true;
         } else {
-            sexo = "Masculino";
+            sexo = false;
         }
         String bairro = jTextBairro.getText();
         String estado = jTextEstado.getText();
 
-        if (jPopupMenu1 == null) {
-            jPopupMenu1 = new JPopupMenu();
-        }
-        if (table == null) {
-            table.setColumnSelectionAllowed(false);
-            table.setRowSelectionAllowed(true);
-        }
-        inserirTabela(nome, telefone, cpf, nascimento, sexo, estado, cidade, bairro);
-        jPopupMenu1.add(new JScrollPane(table));
-        JOptionPane.showMessageDialog(this, "O Cliente " + nome + " Foi inserido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        Cliente cliente = new Cliente(nome, cpf, nascimento, sexo, null, null, telefone);
+        gerIG.getGerDom().inserirCliente(cliente);
+        
+        JOptionPane.showMessageDialog(this, "O Cliente " + nome + " Foi inserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jBuSalvarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
@@ -526,8 +521,8 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jBuSalvar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
