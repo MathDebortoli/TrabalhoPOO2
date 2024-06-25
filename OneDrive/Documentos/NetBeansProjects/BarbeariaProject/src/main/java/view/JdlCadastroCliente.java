@@ -13,31 +13,11 @@ import model.Cliente;
 public class JdlCadastroCliente extends javax.swing.JDialog {
 
     GerInterfaceGrafica gerIG;
-    private JTable table = null;
 
     public JdlCadastroCliente(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
         super(parent, modal);
         this.gerIG = gerIG;
         initComponents();
-        // Adicione um ouvinte de eventos à tabela
-        table = new JTable(new DefaultTableModel(new Object[]{"Nome", "CPF", "Telefone", "Sexo", "Nascimento", "Cidade", "Bairro", "Estado"}, 0)); // Usar a variável de classe table
-
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Verifique se o botão pressionado é o botão esquerdo do mouse
-                if (e.getButton() == MouseEvent.BUTTON1) {
-                    // Verifique se o ponto de clique está fora da tabela
-                    if (!table.contains(e.getPoint())) {
-                        // Feche o popup apenas se o clique for fora da tabela
-                        jPopupMenu1.setVisible(false);
-                    }
-                }
-
-            }
-        }
-        );
-
     }
 
     /**
@@ -76,19 +56,20 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jBuSalvar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro Cliente");
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 255));
+        jPanel1.setForeground(new java.awt.Color(102, 102, 255));
 
-        jPanel2.setBackground(new java.awt.Color(153, 0, 0));
-        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel1.setText("Nome:");
@@ -207,8 +188,8 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                     .addComponent(jTfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        jPanel3.setBackground(new java.awt.Color(153, 0, 0));
-        jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setBackground(new java.awt.Color(153, 153, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel4.setText("Endereço");
@@ -313,43 +294,39 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             }
         });
 
-        jBuSalvar.setBackground(new java.awt.Color(51, 255, 51));
-        jBuSalvar.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jBuSalvar.setText("Salvar");
-        jBuSalvar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jBuSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBuSalvarActionPerformed(evt);
-            }
-        });
-
-        jButton3.setBackground(new java.awt.Color(102, 204, 255));
-        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton3.setText("Selecionar");
-        jButton3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setBackground(new java.awt.Color(255, 0, 0));
-        jButton4.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton4.setText("Excluir");
-        jButton4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-
         jButton5.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jButton5.setText("Excluir");
         jButton5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 0));
         jLabel17.setText("Cadastro de Cliente");
+
+        jButton6.setBackground(new java.awt.Color(0, 255, 0));
+        jButton6.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton6.setText("Salvar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setBackground(new java.awt.Color(51, 255, 204));
+        jButton7.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton7.setText("Editar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setBackground(new java.awt.Color(255, 51, 51));
+        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton3.setText("Excluir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -362,24 +339,24 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(jBuSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(56, 56, 56)
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(79, 79, 79)
+                                .addGap(89, 89, 89)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 40, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(222, 222, 222)
                 .addComponent(jLabel17)
@@ -404,10 +381,10 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBuSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -454,57 +431,22 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jBuSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuSalvarActionPerformed
-        String nome = jTeNome.getText();
-        String cpf = jtfCpf.getText();
-        String telefone = jTfTelefone.getText();
-        String nascimento = jftNascimento.getText();
-        String cidade = jTextCidade.getText();
-        boolean sexo;
-        if (buttonGroup1.getSelection().getMnemonic() == 'f') {
-            sexo = true;
-        } else {
-            sexo = false;
-        }
-        String bairro = jTextBairro.getText();
-        String estado = jTextEstado.getText();
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-        Cliente cliente = new Cliente(nome, cpf, nascimento, sexo, null, null, telefone);
-        gerIG.getGerDom().inserirCliente(cliente);
-        
-        JOptionPane.showMessageDialog(this, "O Cliente " + nome + " Foi inserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jBuSalvarActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-
-        if (table.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "A lista de clientes esta vazia!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        } // Verifique se há uma linha selecionada na tabela
-        else if (table.getSelectedRow() != -1) {
-            // Remova a linha selecionada do modelo da tabela
-            ((DefaultTableModel) table.getModel()).removeRow(table.getSelectedRow());
-            JOptionPane.showMessageDialog(this, "Cliente removido com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-
-        } else {
-            // Caso nenhuma linha esteja selecionada, exiba uma mensagem de erro ou ação inválida
-            // Por exemplo:
-            JOptionPane.showMessageDialog(this, "Selecione uma linha para excluir no botão Visualizar!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        table.clearSelection();
-        if (table.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "A lista de clientes está vazia!", "Aviso", JOptionPane.WARNING_MESSAGE);
-        } // Verifique se há uma linha selecionada na tabela
-        else {
-            jPopupMenu1.show(jPanel1, 150, 150); // Exibe o menu pop-up na posição (0, 0) em relação ao jPanel1
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    /*
     private void inserirTabela(String nome, String telefone, String cpf, String nascimento, String sexo, String estado, String cidade, String bairro) {
         if (table != null) {
-            ((DefaultTableModel) table.getModel()).addRow(new Object[8]);
+            (() table.getModel()).addRow(new Object[8]);
             int linha = table.getRowCount() - 1;
             int coluna = 0;
             table.setValueAt(nome, linha, coluna++);
@@ -516,16 +458,15 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             table.setValueAt(bairro, linha, coluna++);
             table.setValueAt(estado, linha, coluna++);
         }
-
-    }
+     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jBuSalvar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

@@ -1,5 +1,6 @@
 package dao;
 
+import jakarta.persistence.criteria.CriteriaQuery;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -66,26 +67,27 @@ public class GenericDao {
         }
     }
 
-    public List listar(Class classe) {
+    public List listar(Class classe ) throws HibernateException {
         Session sessao = null;
         List lista = null;
+        
         try {
             sessao = ConexaoHibernate.getSessionFactory().openSession();
-            sessao.getTransaction().begin();
+            sessao.beginTransaction();
 
-            //Operacoes
-            // CriteriaQuery consulta = sessao.getCriteriaBuilder().createQuery(class);
-            sessao.getTransaction().commit();
+            //OPERAÇÕES
+            CriteriaQuery consulta = sessao.getCriteriaBuilder().createQuery(classe);
+            consulta.from(classe);
+            lista = sessao.createQuery(consulta).getResultList();            
+
+            sessao.getTransaction().commit();              
             sessao.close();
-
-        } catch (HibernateException erro) {
-            if (sessao != null) {
+        } catch( HibernateException erro) {
+            if ( sessao != null ){
                 sessao.getTransaction().rollback();
                 sessao.close();
             }
-            throw new HibernateException(erro);
         }
-
         return lista;
     }
 

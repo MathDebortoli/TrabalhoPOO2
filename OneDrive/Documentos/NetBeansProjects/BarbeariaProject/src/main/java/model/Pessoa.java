@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import jdk.jfr.Timestamp;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -18,27 +19,70 @@ public abstract class Pessoa implements Serializable {
     @Column(length = 14, nullable = false, unique = true)
     private String cpf;
 
+    @Temporal(value = TemporalType.DATE)
+    @Column(name = "dataNascimento")
+    private Date dataNascimento;
+
+    @Column(length = 2)
+    private String cidade;
+
     @Column
-    private String dataNascimento;
+    private String estado;
+
+    @Column
+    private String bairro;
 
     @Column(length = 1)
     private boolean sexo;
 
     @Lob
     private byte[] foto;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idEndereco")
-    private Endereco endereco;
 
-    public Pessoa(String nome, String cpf, String dataNascimento, boolean sexo, byte[] foto, Endereco endereco) {
+    public Pessoa(String nome, String cpf, Date dataNascimento, boolean sexo, byte[] foto, String cidade, String bairro, String estado) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
         this.foto = foto;
-        this.endereco = endereco;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.estado = estado;
     }
-    
-    
+
+    public int getIdPessoa() {
+        return idPessoa;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public boolean getSexo() {
+        return sexo;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
+
 }

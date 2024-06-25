@@ -6,16 +6,17 @@ import java.util.Date;
 
 @Entity
 public class Cliente extends Pessoa implements Serializable {
-    
-    @Column 
+
+    @Column
     private String telefone;
 
-    public Cliente(String nome, String cpf, String dataNascimento, boolean sexo, byte[] foto, Endereco endereco, String telefone) {
-        super(nome, cpf, dataNascimento, sexo, foto, endereco);
+    public Cliente(String telefone, String nome, String cpf, Date dataNascimento, boolean sexo, byte[] foto, String cidade, String bairro, String estado) {
+        super(nome, cpf, dataNascimento, sexo, foto, cidade, bairro, estado);
         this.telefone = telefone;
     }
 
-  
-    
-    
+    public String getTelefone() {
+        return telefone;
+    }
+
 }

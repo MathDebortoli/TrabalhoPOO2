@@ -39,7 +39,7 @@ public class FrmInit extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
-        jPanel3.setBackground(new java.awt.Color(153, 0, 0));
+        jPanel3.setBackground(new java.awt.Color(102, 102, 255));
 
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         jButton1.setText("Cadastrar Pedido");

@@ -37,12 +37,12 @@ public class JdlSobreSistema extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 153));
 
+        jPanel2.setBackground(new java.awt.Color(102, 102, 255));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagemInit.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(204, 0, 0));
         jLabel2.setText("Barbearia Debortoli - V.1");
 
         jTextArea1.setEditable(false);
