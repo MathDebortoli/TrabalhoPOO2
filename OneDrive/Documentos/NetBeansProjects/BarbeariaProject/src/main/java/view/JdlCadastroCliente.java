@@ -442,7 +442,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             Cliente cliente = new Cliente(telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
             try {
                 gerIG.getGerDom().inserirCliente(cliente);
-                JOptionPane.showMessageDialog(this, "Cliente Inserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Funcionario;
+import model.Servico;
 
 public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
@@ -348,10 +349,14 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
             cliTableModel.setLista(lista);
 
-            //Servico
         } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
+            try {
+                lista = gerIG.getGerDom().listar(Servico.class);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            serTableModel.setLista(lista);
 
-            //Funcionario
         } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
             try {
                 lista = gerIG.getGerDom().listar(Funcionario.class);
@@ -449,17 +454,20 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
 
         } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
-            /*
-                   Cliente cliente = cliTableModel.getCliente(linha);
+            Servico servico = serTableModel.getServico(linha);
             try {
-                gerIG.getGerDom().excluirCliente(cliente);
-                JOptionPane.showMessageDialog(this, "Cliente Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
-                cliTableModel.setLista(null);
-                jTable1.setModel(cliTableModel);
+                gerIG.getGerDom().excluirServico(servico);
+                JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    lista = gerIG.getGerDom().listar(Servico.class);
+                    serTableModel.setLista(lista);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
-             */
+
         } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
 
             Funcionario funcionario = funTableModel.getFuncionario(linha);

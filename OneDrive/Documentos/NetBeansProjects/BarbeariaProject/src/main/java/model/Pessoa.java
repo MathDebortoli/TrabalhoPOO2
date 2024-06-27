@@ -13,7 +13,7 @@ public abstract class Pessoa implements Serializable {
     private int idPessoa;
 
     @Column(name = "nome", length = 50)
-    private String nome;
+    protected String nome;
 
     @Column(length = 14, nullable = false, unique = true)
     private String cpf;
@@ -38,7 +38,6 @@ public abstract class Pessoa implements Serializable {
     private byte[] foto;
     
     public Pessoa(){
-        
     }
 
     public Pessoa(String nome, String cpf, Date dataNascimento, String sexo, byte[] foto, String cidade, String bairro, String estado) {
@@ -88,4 +87,10 @@ public abstract class Pessoa implements Serializable {
         return foto;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
+
+    
 }

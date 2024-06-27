@@ -42,7 +42,6 @@ public class Pedido implements Serializable {
     private List<Servico> servicos;
     
     public Pedido(){
-        
     }
 
     public Pedido(int idPedido, Date dataPedido, boolean pago, double precoPedido, String formaPagamento, Funcionario funcionario, Cliente cliente, List<Servico> servicos) {

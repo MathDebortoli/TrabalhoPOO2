@@ -3,8 +3,15 @@ package gertarefas;
 import gerdominio.GerDominio;
 import java.awt.Frame;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import model.Cliente;
 import view.FrmInit;
 import view.JdlCadastroCliente;
 import view.JdlCadastroFuncionario;
@@ -21,7 +28,7 @@ public class GerInterfaceGrafica {
 
     private static GerDominio gerDom;
     private FrmInit frmprincipal = null;
-    
+
     private JdlCadastroCliente cadcliente = null;
     private JdlCadastroPedido cadpedido = null;
     private JdlCadastroServico cadservico = null;
@@ -29,10 +36,9 @@ public class GerInterfaceGrafica {
     private JdlConsultarAgenda consultagenda = null;
     private JdlCadastroFuncionario cadfunc = null;
     private JdlGerenciarCadastros gercad = null;
-    
-    
-    private GerInterfaceGrafica(){
-        
+
+    private GerInterfaceGrafica() {
+
     }
 
     public static GerInterfaceGrafica getMyInstance() {
@@ -62,7 +68,6 @@ public class GerInterfaceGrafica {
         frmprincipal.setVisible(true);
     }
 
-    
     public GerDominio getGerDom() {
         return gerDom;
     }
@@ -93,6 +98,15 @@ public class GerInterfaceGrafica {
 
     public void abrirJanGenCadastros() {
         abrirJanelaDialog(frmprincipal, gercad, JdlGerenciarCadastros.class);
+    }
+
+    public void carregarCombo(JComboBox combo, Class classe) {
+        try {
+            List lista = getGerDom().listar(classe);
+            combo.setModel(new DefaultComboBoxModel(lista.toArray()));
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(classe.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void main(String args[]) {

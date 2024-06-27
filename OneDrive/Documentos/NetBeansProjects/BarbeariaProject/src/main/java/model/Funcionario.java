@@ -17,8 +17,8 @@ public class Funcionario extends Pessoa implements Serializable {
 
     @Column
     private double salario;
-    
-    public Funcionario(){
+
+    public Funcionario() {
         super();
     }
 
@@ -39,6 +39,11 @@ public class Funcionario extends Pessoa implements Serializable {
 
     public double getSalario() {
         return salario;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 
 }

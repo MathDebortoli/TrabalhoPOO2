@@ -23,4 +23,9 @@ public class Cliente extends Pessoa implements Serializable {
         return telefone;
     }
 
+    @Override
+    public String toString() {
+        return nome;
+    }
+
 }

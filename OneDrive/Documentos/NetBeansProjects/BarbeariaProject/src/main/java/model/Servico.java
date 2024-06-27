@@ -57,11 +57,9 @@ public class Servico implements Serializable {
     private List<Pedido> pedidos;
     
     public Servico(){
-        
     }
 
-    public Servico(int idServico, String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, double tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
-        this.idServico = idServico;
+    public Servico(String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, double tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
         this.tipo = tipo;
         this.cabeloPreferencial = cabeloPreferencial;
         this.quimica = quimica;
@@ -76,7 +74,6 @@ public class Servico implements Serializable {
         this.imagemServico = imagemServico;
         this.pedidos = pedidos;
     }
-    
     
 
     public boolean getTesoura() {
@@ -134,5 +131,11 @@ public class Servico implements Serializable {
     public List<Pedido> getPedidos() {
         return pedidos;
     }
+
+    @Override
+    public String toString() {
+        return nomeServico;
+    }
+    
 
 }
