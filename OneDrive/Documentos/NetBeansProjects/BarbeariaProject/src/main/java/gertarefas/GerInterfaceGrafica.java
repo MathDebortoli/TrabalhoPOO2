@@ -21,6 +21,7 @@ public class GerInterfaceGrafica {
 
     private static GerDominio gerDom;
     private FrmInit frmprincipal = null;
+    
     private JdlCadastroCliente cadcliente = null;
     private JdlCadastroPedido cadpedido = null;
     private JdlCadastroServico cadservico = null;
@@ -28,8 +29,10 @@ public class GerInterfaceGrafica {
     private JdlConsultarAgenda consultagenda = null;
     private JdlCadastroFuncionario cadfunc = null;
     private JdlGerenciarCadastros gercad = null;
-
-    private GerInterfaceGrafica() {
+    
+    
+    private GerInterfaceGrafica(){
+        
     }
 
     public static GerInterfaceGrafica getMyInstance() {
@@ -43,7 +46,7 @@ public class GerInterfaceGrafica {
         if (dialog == null) {
             try {
                 dialog = (JDialog) classe.getConstructor(Frame.class, boolean.class, GerInterfaceGrafica.class)
-                        .newInstance(parent, true, instance);
+                        .newInstance(parent, true, getMyInstance());
             } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                 JOptionPane.showMessageDialog(parent, "Erro ao abrir a Janela " + classe.getName() + ": " + e.getMessage());
             }
@@ -59,6 +62,7 @@ public class GerInterfaceGrafica {
         frmprincipal.setVisible(true);
     }
 
+    
     public GerDominio getGerDom() {
         return gerDom;
     }

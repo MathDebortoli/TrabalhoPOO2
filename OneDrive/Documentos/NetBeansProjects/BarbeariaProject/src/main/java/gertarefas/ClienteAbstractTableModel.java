@@ -32,30 +32,29 @@ public class ClienteAbstractTableModel extends AbstractTableModel {
         Cliente item = listaItens.get(rowIndex);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        switch (columnIndex) {
-            case 0:
-                return item.getNome();
-            case 1:
-                return dateFormat.format(item.getDataNascimento());
-            case 2:
-                return item.getSexo();
-            case 3:
-                return item.getCpf();
-            case 4:
-                return item.getTelefone();
-            case 5:
-                return item.getFoto();
-            case 6:
-                return item.getCidade();
-            case 7:
-                return item.getEstado();
-            case 8:
-                return item.getBairro();
-            default:
-                return null;
-        }
+        return switch (columnIndex) {
+            case 0 ->
+                item.getNome();
+            case 1 ->
+                dateFormat.format(item.getDataNascimento());
+            case 2 ->
+                item.getSexo();
+            case 3 ->
+                item.getCpf();
+            case 4 ->
+                item.getTelefone();
+            case 5 ->
+                item.getFoto();
+            case 6 ->
+                item.getCidade();
+            case 7 ->
+                item.getEstado();
+            case 8 ->
+                item.getBairro();
+            default ->
+                null;
+        };
     }
-
     public void adicionar(Cliente item) {
         listaItens.add(item);
         fireTableRowsInserted(listaItens.size() - 1, listaItens.size() - 1);
@@ -65,7 +64,6 @@ public class ClienteAbstractTableModel extends AbstractTableModel {
     public void remover(int indice) {
         listaItens.remove(indice);
         fireTableRowsDeleted(indice, indice);
-
     }
 
     public Cliente getCliente(int linha) {
@@ -73,12 +71,9 @@ public class ClienteAbstractTableModel extends AbstractTableModel {
     }
 
     public void setLista(List<Cliente> novaLista) {
-
-        if (novaLista.isEmpty()) {
-            if (!listaItens.isEmpty()) {
-                listaItens.clear();
-                fireTableRowsDeleted(0, 0);
-            }
+        if (novaLista == null) {
+            listaItens.clear();
+            fireTableRowsDeleted(0, 0);
         } else {
             listaItens = novaLista;
             fireTableRowsInserted(0, listaItens.size() - 1);

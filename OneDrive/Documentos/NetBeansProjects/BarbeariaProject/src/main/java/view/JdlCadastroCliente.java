@@ -1,13 +1,12 @@
 package view;
 
+import gertarefas.FuncoesUteis;
 import gertarefas.GerInterfaceGrafica;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 
 public class JdlCadastroCliente extends javax.swing.JDialog {
@@ -18,6 +17,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         super(parent, modal);
         this.gerIG = gerIG;
         initComponents();
+        jButton3.setEnabled(false);
     }
 
     /**
@@ -50,9 +50,9 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextEstado = new javax.swing.JTextField();
         jTextCidade = new javax.swing.JTextField();
         jTextBairro = new javax.swing.JTextField();
+        jTextCidade1 = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -93,7 +93,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jLabel3.setText("Sexo:");
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setMnemonic('m');
+        jRadioButton1.setMnemonic('\u0001');
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Masculino");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +103,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         });
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setMnemonic('f');
         jRadioButton2.setText("Feminino");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
@@ -203,12 +202,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel9.setText("Bairro:");
 
-        jTextEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextEstadoActionPerformed(evt);
-            }
-        });
-
         jTextCidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextCidadeActionPerformed(evt);
@@ -221,51 +214,52 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             }
         });
 
+        jTextCidade1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextCidade1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(12, 12, 12)
-                                .addComponent(jTextCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextBairro)
+                            .addComponent(jTextCidade1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(jTextCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(125, 125, 125))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(9, 9, 9)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTextCidade1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTextBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/perfil.png"))); // NOI18N
@@ -303,7 +297,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
 
         jButton6.setBackground(new java.awt.Color(0, 255, 0));
         jButton6.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton6.setText("Salvar");
+        jButton6.setText("Inserir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -312,7 +306,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
 
         jButton7.setBackground(new java.awt.Color(51, 255, 204));
         jButton7.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton7.setText("Editar");
+        jButton7.setText("Selecionar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -321,7 +315,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
 
         jButton3.setBackground(new java.awt.Color(255, 51, 51));
         jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton3.setText("Excluir");
+        jButton3.setText("Alterar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -345,18 +339,18 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
+                                .addGap(42, 42, 42)
                                 .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(89, 89, 89)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 40, Short.MAX_VALUE))))
+                        .addGap(0, 16, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(222, 222, 222)
                 .addComponent(jLabel17)
@@ -384,7 +378,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -412,15 +406,10 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_jTeNomeActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jTextEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextEstadoActionPerformed
+     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jTextBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextBairroActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextBairroActionPerformed
 
     private void jTextCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidadeActionPerformed
@@ -428,37 +417,54 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextCidadeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //jButton7.setEnabled(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        try {
+            //Salvar
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String sexo;
+            String nome = jTeNome.getText();
+            Date nascimento = formato.parse(jftNascimento.getText());
+            if (buttonGroup1.getSelection().getMnemonic() == 1) {
+                sexo = "m";
+            } else {
+                sexo = "f";
+            }
+            String cpf = jtfCpf.getText();
+            String telefone = jTfTelefone.getText();
+            String cidade = jTextCidade1.getText();
+            String bairro = jTextBairro.getText();
+            String estado = jTextCidade.getText();
+            byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
+
+            Cliente cliente = new Cliente(telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
+            try {
+                gerIG.getGerDom().inserirCliente(cliente);
+                JOptionPane.showMessageDialog(this, "Cliente Inserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Erro nos dados. " + ex.getMessage(), "ERRO Cadastro Cliente", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        gerIG.abrirJanGenCadastros();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        gerIG.abrirJanGenCadastros();
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /*
-    private void inserirTabela(String nome, String telefone, String cpf, String nascimento, String sexo, String estado, String cidade, String bairro) {
-        if (table != null) {
-            (() table.getModel()).addRow(new Object[8]);
-            int linha = table.getRowCount() - 1;
-            int coluna = 0;
-            table.setValueAt(nome, linha, coluna++);
-            table.setValueAt(cpf, linha, coluna++);
-            table.setValueAt(telefone, linha, coluna++);
-            table.setValueAt(sexo, linha, coluna++);
-            table.setValueAt(nascimento, linha, coluna++);
-            table.setValueAt(cidade, linha, coluna++);
-            table.setValueAt(bairro, linha, coluna++);
-            table.setValueAt(estado, linha, coluna++);
-        }
-     */
+    private void jTextCidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidade1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextCidade1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -489,7 +495,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     private javax.swing.JTextField jTeNome;
     private javax.swing.JTextField jTextBairro;
     private javax.swing.JTextField jTextCidade;
-    private javax.swing.JTextField jTextEstado;
+    private javax.swing.JTextField jTextCidade1;
     private javax.swing.JFormattedTextField jTfTelefone;
     private javax.swing.JFormattedTextField jftNascimento;
     private javax.swing.JFormattedTextField jtfCpf;

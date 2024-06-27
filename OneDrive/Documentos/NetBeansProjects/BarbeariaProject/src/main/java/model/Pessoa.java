@@ -3,7 +3,6 @@ package model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import jdk.jfr.Timestamp;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -23,22 +22,26 @@ public abstract class Pessoa implements Serializable {
     @Column(name = "dataNascimento")
     private Date dataNascimento;
 
-    @Column(length = 2)
+    @Column(length = 30)
     private String cidade;
 
-    @Column
+    @Column(length = 30)
     private String estado;
 
     @Column
     private String bairro;
 
     @Column(length = 1)
-    private boolean sexo;
+    private String sexo;
 
     @Lob
     private byte[] foto;
+    
+    public Pessoa(){
+        
+    }
 
-    public Pessoa(String nome, String cpf, Date dataNascimento, boolean sexo, byte[] foto, String cidade, String bairro, String estado) {
+    public Pessoa(String nome, String cpf, Date dataNascimento, String sexo, byte[] foto, String cidade, String bairro, String estado) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -77,7 +80,7 @@ public abstract class Pessoa implements Serializable {
         return bairro;
     }
 
-    public boolean getSexo() {
+    public String getSexo() {
         return sexo;
     }
 

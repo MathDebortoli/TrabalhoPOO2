@@ -1,13 +1,15 @@
 package gertarefas;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Servico;
+import model.Cliente;
+import model.Funcionario;
 
-public class ServicoAbstractTableModel extends AbstractTableModel {
+public class FuncionarioAbstractTableModel extends AbstractTableModel {
 
-    private List<Servico> listaItens = new ArrayList();
+    private List<Funcionario> listaItens = new ArrayList();
 
     @Override
     public int getRowCount() {
@@ -22,43 +24,44 @@ public class ServicoAbstractTableModel extends AbstractTableModel {
     // Títulos das colunas
     @Override
     public String getColumnName(int column) {
-        String nomesColunas[] = {"Nome", "Tipo", "Cab. Preferencial", "Quimica", "Preco", "Tempo (Min)", "Tesoura", "Máquina", "Shampoo", "Condicionador", "Navalha"};
+        String nomesColunas[] = {"Nome", "Nascimento", "Sexo", "Cpf", "Inicio Contrato", "Fim Contrato", "Salario", "Foto", "Cidade", "Estado", "Bairro"};
         return nomesColunas[column];
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Servico item = listaItens.get(rowIndex);
+        Funcionario item = listaItens.get(rowIndex);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         return switch (columnIndex) {
             case 0 ->
-                item.getNomeServico();
+                item.getNome();
             case 1 ->
-                item.getTipo();
+                dateFormat.format(item.getDataNascimento());
             case 2 ->
-                item.getCabeloPreferencial();
+                item.getSexo();
             case 3 ->
-                item.getQuimica();
+                item.getCpf();
             case 4 ->
-                item.getPreco();
+                dateFormat.format(item.getDataContratoinc());
             case 5 ->
-                item.getTempoMedio();
+                dateFormat.format(item.getDataContratofim());
             case 6 ->
-                item.getTesoura();
+                item.getSalario();
             case 7 ->
-                item.getMaquina();
+                item.getFoto();
             case 8 ->
-                item.getShampoo();
+                item.getCidade();
             case 9 ->
-                item.getCondicionador();
+                item.getEstado();
             case 10 ->
-                item.getNavalha();
+                item.getBairro();
             default ->
                 null;
         };
     }
 
-    public void adicionar(Servico item) {
+    public void adicionar(Funcionario item) {
         listaItens.add(item);
         fireTableRowsInserted(listaItens.size() - 1, listaItens.size() - 1);
     }
@@ -66,14 +69,13 @@ public class ServicoAbstractTableModel extends AbstractTableModel {
     public void remover(int indice) {
         listaItens.remove(indice);
         fireTableRowsDeleted(indice, indice);
-
     }
 
-    public Servico getServico(int linha) {
+    public Funcionario getFuncionario(int linha) {
         return listaItens.get(linha);
     }
 
-    public void setLista(List<Servico> novaLista) {
+    public void setLista(List<Funcionario> novaLista) {
         if (novaLista == null) {
             listaItens.clear();
             fireTableRowsDeleted(0, 0);
@@ -83,5 +85,4 @@ public class ServicoAbstractTableModel extends AbstractTableModel {
         }
 
     }
-
 }

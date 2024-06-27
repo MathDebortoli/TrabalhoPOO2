@@ -3,11 +3,12 @@ package gertarefas;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Servico;
+import model.Cliente;
+import model.Pedido;
 
-public class ServicoAbstractTableModel extends AbstractTableModel {
+public class PedidoAbstractTableModel extends AbstractTableModel {
 
-    private List<Servico> listaItens = new ArrayList();
+    private List<Pedido> listaItens = new ArrayList();
 
     @Override
     public int getRowCount() {
@@ -16,51 +17,42 @@ public class ServicoAbstractTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 11;
+        return 6;
     }
 
     // Títulos das colunas
     @Override
     public String getColumnName(int column) {
-        String nomesColunas[] = {"Nome", "Tipo", "Cab. Preferencial", "Quimica", "Preco", "Tempo (Min)", "Tesoura", "Máquina", "Shampoo", "Condicionador", "Navalha"};
+        String nomesColunas[] = {"Data", "Pago", "Preco", "Cliente", "Servicos", "Forma Pagamento"};
         return nomesColunas[column];
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Servico item = listaItens.get(rowIndex);
+        Pedido item = listaItens.get(rowIndex);
 
         return switch (columnIndex) {
             case 0 ->
-                item.getNomeServico();
+                item.getDataPedido();
             case 1 ->
-                item.getTipo();
+                item.getPago();
             case 2 ->
-                item.getCabeloPreferencial();
+                item.getPrecoPedido();
             case 3 ->
-                item.getQuimica();
+                item.getCliente();
             case 4 ->
-                item.getPreco();
+                item.getServicos();
             case 5 ->
-                item.getTempoMedio();
-            case 6 ->
-                item.getTesoura();
-            case 7 ->
-                item.getMaquina();
-            case 8 ->
-                item.getShampoo();
-            case 9 ->
-                item.getCondicionador();
-            case 10 ->
-                item.getNavalha();
+                item.getFormaPagamento();
             default ->
                 null;
         };
     }
 
-    public void adicionar(Servico item) {
+    public void adicionar(Pedido item) {
         listaItens.add(item);
         fireTableRowsInserted(listaItens.size() - 1, listaItens.size() - 1);
+
     }
 
     public void remover(int indice) {
@@ -69,11 +61,11 @@ public class ServicoAbstractTableModel extends AbstractTableModel {
 
     }
 
-    public Servico getServico(int linha) {
+    public Pedido getPedido(int linha) {
         return listaItens.get(linha);
     }
 
-    public void setLista(List<Servico> novaLista) {
+    public void setLista(List<Pedido> novaLista) {
         if (novaLista == null) {
             listaItens.clear();
             fireTableRowsDeleted(0, 0);

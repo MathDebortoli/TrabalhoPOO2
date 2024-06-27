@@ -1,8 +1,17 @@
 package view;
 
 import gertarefas.ClienteAbstractTableModel;
+import gertarefas.FuncionarioAbstractTableModel;
 import gertarefas.GerInterfaceGrafica;
+import gertarefas.PedidoAbstractTableModel;
 import gertarefas.ServicoAbstractTableModel;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import model.Cliente;
+import model.Funcionario;
 
 public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
@@ -10,8 +19,8 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
     private ClienteAbstractTableModel cliTableModel;
     private ServicoAbstractTableModel serTableModel;
-    //private ClienteAbstractTableModel cliTableModel;
-    //private ClienteAbstractTableModel cliTableModel;
+    private PedidoAbstractTableModel pedTableModel;
+    private FuncionarioAbstractTableModel funTableModel;
 
     public JdlGerenciarCadastros(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
         super(parent, modal);
@@ -19,6 +28,10 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         initComponents();
 
         cliTableModel = new ClienteAbstractTableModel();
+        serTableModel = new ServicoAbstractTableModel();
+        pedTableModel = new PedidoAbstractTableModel();
+        funTableModel = new FuncionarioAbstractTableModel();
+
         jTable1.setModel(cliTableModel);
 
     }
@@ -48,6 +61,9 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         jButton6 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -62,16 +78,18 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         jRadioButton1.setBackground(new java.awt.Color(102, 102, 102));
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setFont(new java.awt.Font("Segoe UI Black", 3, 14)); // NOI18N
+        jRadioButton1.setMnemonic(1);
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Cliente");
-        jRadioButton1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jRadioButton1StateChanged(evt);
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
             }
         });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setFont(new java.awt.Font("Segoe UI Black", 3, 14)); // NOI18N
+        jRadioButton2.setMnemonic(2);
         jRadioButton2.setText("Serviço");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,11 +99,23 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
         buttonGroup1.add(jRadioButton3);
         jRadioButton3.setFont(new java.awt.Font("Segoe UI Black", 3, 14)); // NOI18N
+        jRadioButton3.setMnemonic(3);
         jRadioButton3.setText("Funcionário");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setFont(new java.awt.Font("Segoe UI Black", 3, 14)); // NOI18N
+        jRadioButton4.setMnemonic(4);
         jRadioButton4.setText("Pedido");
+        jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -133,8 +163,8 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 614, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,21 +184,27 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jButton6.setBackground(new java.awt.Color(255, 51, 51));
         jButton6.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jButton6.setText("Excluir");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton4.setBackground(new java.awt.Color(102, 0, 153));
         jButton4.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
@@ -188,6 +224,33 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
         });
 
+        jButton7.setBackground(new java.awt.Color(0, 153, 0));
+        jButton7.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton7.setText("Preco");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setBackground(new java.awt.Color(255, 204, 51));
+        jButton8.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton8.setText("Nome");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton9.setBackground(new java.awt.Color(255, 0, 255));
+        jButton9.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton9.setText("Salario");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -195,8 +258,16 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(20, 20, 20)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -204,7 +275,7 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
                         .addComponent(jButton6)
                         .addGap(14, 14, 14)
                         .addComponent(jButton4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(32, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -221,12 +292,21 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,21 +336,174 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        //Listar
+        List lista = null;
+
+        //Cliente
+        if (buttonGroup1.getSelection().getMnemonic() == 1) {
+            try {
+                lista = gerIG.getGerDom().listar(Cliente.class);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cliTableModel.setLista(lista);
+
+            //Servico
+        } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
+
+            //Funcionario
+        } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
+            try {
+                lista = gerIG.getGerDom().listar(Funcionario.class);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            funTableModel.setLista(lista);
+        } else {
+
+        }
+
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        //Editar
+        /*
+
+        int linha = jTable1.getSelectedRow();
+
+        if (jTable1.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "A Tabela Está Vazia!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (linha < 0 || linha >= jTable1.getRowCount()) {
+            JOptionPane.showMessageDialog(this, "Selecione uma Linha da Tabela!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (buttonGroup1.getSelection().getMnemonic() == 1) {
+            Cliente cliente = cliTableModel.getCliente(linha);
+            try {
+                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                cliTableModel.setLista(null);
+                jTable1.setModel(cliTableModel);
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+         */
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jRadioButton1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jRadioButton1StateChanged
-        serTableModel = new ServicoAbstractTableModel();
-        jTable1.setModel(cliTableModel);
-    }//GEN-LAST:event_jRadioButton1StateChanged
-
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        serTableModel = new ServicoAbstractTableModel();
-        jTable1.setModel(serTableModel);    }//GEN-LAST:event_jRadioButton2ActionPerformed
+        serTableModel.setLista(null);
+        jTable1.setModel(serTableModel);
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        cliTableModel.setLista(null);
+        jTable1.setModel(cliTableModel);
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
+        pedTableModel.setLista(null);
+        jTable1.setModel(pedTableModel);
+
+    }//GEN-LAST:event_jRadioButton4ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+        funTableModel.setLista(null);
+        jTable1.setModel(funTableModel);
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        //Excluir
+
+        List lista = null;
+        int linha = jTable1.getSelectedRow();
+
+        if (jTable1.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "A Tabela Está Vazia!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (linha < 0 || linha >= jTable1.getRowCount()) {
+            JOptionPane.showMessageDialog(this, "Selecione uma Linha da Tabela!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (buttonGroup1.getSelection().getMnemonic() == 1) {
+            Cliente cliente = cliTableModel.getCliente(linha);
+            try {
+                gerIG.getGerDom().excluirCliente(cliente);
+                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    lista = gerIG.getGerDom().listar(Cliente.class);
+                    cliTableModel.setLista(lista);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
+            /*
+                   Cliente cliente = cliTableModel.getCliente(linha);
+            try {
+                gerIG.getGerDom().excluirCliente(cliente);
+                JOptionPane.showMessageDialog(this, "Cliente Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                cliTableModel.setLista(null);
+                jTable1.setModel(cliTableModel);
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+             */
+        } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
+
+            Funcionario funcionario = funTableModel.getFuncionario(linha);
+            try {
+                gerIG.getGerDom().excluirFuncionario(funcionario);
+                JOptionPane.showMessageDialog(this, "Funcionario: " + funcionario.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    lista = gerIG.getGerDom().listar(Funcionario.class);
+                    funTableModel.setLista(lista);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } else {
+            /*
+                   Funcionario funcionario = cliTableModel.getCliente(linha);
+            try {
+                gerIG.getGerDom().excluirCliente(cliente);
+                JOptionPane.showMessageDialog(this, "Cliente Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                cliTableModel.setLista(null);
+                jTable1.setModel(cliTableModel);
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+             */
+        }
+
+
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton9ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -278,6 +511,9 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
