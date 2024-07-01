@@ -499,7 +499,7 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
             Funcionario funcionario = new Funcionario(inccont, fimcont, salario, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
             try {
                 gerIG.getGerDom().inserirFuncionario(funcionario);
-                JOptionPane.showMessageDialog(this, "Funcionário Inserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Funcionário: " + funcionario.getNome()+"\nInserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }

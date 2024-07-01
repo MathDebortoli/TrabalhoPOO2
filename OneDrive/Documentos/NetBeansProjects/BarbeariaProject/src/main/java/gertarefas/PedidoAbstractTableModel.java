@@ -16,13 +16,13 @@ public class PedidoAbstractTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     // Títulos das colunas
     @Override
     public String getColumnName(int column) {
-        String nomesColunas[] = {"Data", "Pago", "Cliente", "Servicos", "Forma Pagamento"};
+        String nomesColunas[] = {"Data", "Pago", "Cliente", "Servicos", "Forma Pagamento", "Funcionario"};
         return nomesColunas[column];
     }
 
@@ -41,6 +41,8 @@ public class PedidoAbstractTableModel extends AbstractTableModel {
                 item.getServicos();
             case 4 ->
                 item.getFormaPagamento();
+            case 5 ->
+                item.getFuncionario();
             default ->
                 null;
         };

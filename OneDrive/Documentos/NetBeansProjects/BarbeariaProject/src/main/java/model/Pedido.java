@@ -23,15 +23,15 @@ public class Pedido implements Serializable {
     @Column
     private String formaPagamento;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idFuncionario")
+    @ManyToOne
+    @JoinColumn(name = "idFuncionario", nullable = false)
     private Funcionario funcionario;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idCliente")
+    @ManyToOne
+    @JoinColumn(name = "idCliente", nullable = false)
     private Cliente cliente;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Pedido_Servicos", joinColumns = {
         @JoinColumn(name = "idPedido")},
             inverseJoinColumns = {
@@ -41,7 +41,7 @@ public class Pedido implements Serializable {
     public Pedido(){
     }
 
-    public Pedido(Date dataPedido,boolean pago, String formaPagamento, Funcionario funcionario, Cliente cliente, List<Servico> servicos) {
+    public Pedido(Date dataPedido, boolean pago, String formaPagamento, Funcionario funcionario, Cliente cliente, List<Servico> servicos) {
         this.dataPedido = dataPedido;
         this.pago = pago;
         this.formaPagamento = formaPagamento;
@@ -50,10 +50,6 @@ public class Pedido implements Serializable {
         this.servicos = servicos;
     }
     
-    public int getIdPedido() {
-        return idPedido;
-    }
-
     public Date getDataPedido() {
         return dataPedido;
     }

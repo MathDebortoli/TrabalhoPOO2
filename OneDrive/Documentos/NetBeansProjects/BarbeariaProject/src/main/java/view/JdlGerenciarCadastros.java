@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Funcionario;
+import model.Pedido;
 import model.Servico;
 
 public class JdlGerenciarCadastros extends javax.swing.JDialog {
@@ -365,7 +366,12 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
             funTableModel.setLista(lista);
         } else {
-            
+            try {
+                lista = gerIG.getGerDom().listar(Pedido.class);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            pedTableModel.setLista(lista);
         }
 
 
@@ -485,17 +491,20 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
 
         } else {
-            /*
-                   Funcionario funcionario = cliTableModel.getCliente(linha);
+            Pedido pedido = pedTableModel.getPedido(linha);
             try {
-                gerIG.getGerDom().excluirCliente(cliente);
-                JOptionPane.showMessageDialog(this, "Cliente Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
-                cliTableModel.setLista(null);
-                jTable1.setModel(cliTableModel);
+                gerIG.getGerDom().excluirPedido(pedido);
+                JOptionPane.showMessageDialog(this, "Pedido Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                try {
+                    lista = gerIG.getGerDom().listar(Pedido.class);
+                    pedTableModel.setLista(lista);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
-             */
+
         }
 
 
