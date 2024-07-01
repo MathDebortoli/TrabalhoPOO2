@@ -3,11 +3,11 @@ package gertarefas;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Pedido;
+import model.Servico;
 
-public class PedidoAbstractTableModel extends AbstractTableModel {
+public class ItemPedidoAbstractTableModel extends AbstractTableModel {
 
-    private List<Pedido> listaItens = new ArrayList();
+    private List<Servico> listaItens = new ArrayList();
 
     @Override
     public int getRowCount() {
@@ -16,37 +16,33 @@ public class PedidoAbstractTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 1;
+    }
+    
+    public List<Servico> getList(){
+        return listaItens;
     }
 
     // Títulos das colunas
     @Override
     public String getColumnName(int column) {
-        String nomesColunas[] = {"Data", "Pago", "Cliente", "Servicos", "Forma Pagamento"};
+        String nomesColunas[] = {"Nome do Servico"};
         return nomesColunas[column];
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Pedido item = listaItens.get(rowIndex);
+        Servico item = listaItens.get(rowIndex);
 
         return switch (columnIndex) {
             case 0 ->
-                item.getDataPedido();
-            case 1 ->
-                item.getPago();
-            case 2 ->
-                item.getCliente();
-            case 3 ->
-                item.getServicos();
-            case 4 ->
-                item.getFormaPagamento();
+                item.getNomeServico();
             default ->
                 null;
         };
     }
 
-    public void adicionar(Pedido item) {
+    public void adicionar(Servico item) {
         listaItens.add(item);
         fireTableRowsInserted(listaItens.size() - 1, listaItens.size() - 1);
 
@@ -55,14 +51,13 @@ public class PedidoAbstractTableModel extends AbstractTableModel {
     public void remover(int indice) {
         listaItens.remove(indice);
         fireTableRowsDeleted(indice, indice);
-
     }
 
-    public Pedido getPedido(int linha) {
+    public Servico getServico(int linha) {
         return listaItens.get(linha);
     }
 
-    public void setLista(List<Pedido> novaLista) {
+    public void setLista(List<Servico> novaLista) {
         if (novaLista == null) {
             listaItens.clear();
             fireTableRowsDeleted(0, 0);

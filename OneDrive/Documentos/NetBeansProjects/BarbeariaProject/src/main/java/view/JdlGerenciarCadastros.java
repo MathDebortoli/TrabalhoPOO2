@@ -365,7 +365,7 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
             funTableModel.setLista(lista);
         } else {
-
+            
         }
 
 

@@ -424,13 +424,13 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         try {
             //Salvar
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            String sexo;
+            char sexo;
             String nome = jTeNome.getText();
             Date nascimento = formato.parse(jftNascimento.getText());
             if (buttonGroup1.getSelection().getMnemonic() == 1) {
-                sexo = "m";
+                sexo = 'm';
             } else {
-                sexo = "f";
+                sexo = 'f';
             }
             String cpf = jtfCpf.getText();
             String telefone = jTfTelefone.getText();

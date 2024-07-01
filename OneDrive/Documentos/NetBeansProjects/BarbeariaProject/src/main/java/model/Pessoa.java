@@ -25,14 +25,14 @@ public abstract class Pessoa implements Serializable {
     @Column(length = 30)
     private String cidade;
 
-    @Column(length = 30)
+    @Column(length = 2)
     private String estado;
 
     @Column
     private String bairro;
 
-    @Column(length = 1)
-    private String sexo;
+    @Column
+    private char sexo;
 
     @Lob
     private byte[] foto;
@@ -40,7 +40,7 @@ public abstract class Pessoa implements Serializable {
     public Pessoa(){
     }
 
-    public Pessoa(String nome, String cpf, Date dataNascimento, String sexo, byte[] foto, String cidade, String bairro, String estado) {
+    public Pessoa(String nome, String cpf, Date dataNascimento, char sexo, byte[] foto, String cidade, String bairro, String estado) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -79,7 +79,7 @@ public abstract class Pessoa implements Serializable {
         return bairro;
     }
 
-    public String getSexo() {
+    public char getSexo() {
         return sexo;
     }
 

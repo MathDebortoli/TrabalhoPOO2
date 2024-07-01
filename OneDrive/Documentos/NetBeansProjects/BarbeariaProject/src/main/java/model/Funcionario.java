@@ -22,7 +22,7 @@ public class Funcionario extends Pessoa implements Serializable {
         super();
     }
 
-    public Funcionario(Date dataContratoinc, Date dataContratofim, double salario, String nome, String cpf, Date dataNascimento, String sexo, byte[] foto, String cidade, String bairro, String estado) {
+    public Funcionario(Date dataContratoinc, Date dataContratofim, double salario, String nome, String cpf, Date dataNascimento, char sexo, byte[] foto, String cidade, String bairro, String estado) {
         super(nome, cpf, dataNascimento, sexo, foto, cidade, bairro, estado);
         this.dataContratoinc = dataContratoinc;
         this.dataContratofim = dataContratofim;

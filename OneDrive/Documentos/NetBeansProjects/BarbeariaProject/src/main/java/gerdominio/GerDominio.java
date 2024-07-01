@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 import model.Cliente;
 import model.Funcionario;
+import model.Pedido;
 import model.Servico;
 
 public class GerDominio {
@@ -30,6 +31,14 @@ public class GerDominio {
 
     public void inserirServico(Servico servico) throws ClassNotFoundException, SQLException {
         gendao.inserir(servico);
+    }
+
+    public void inserirPedido(Pedido pedido) throws ClassNotFoundException, SQLException {
+        gendao.inserir(pedido);
+    }
+
+    public void excluirPedido(Pedido pedido) throws ClassNotFoundException, SQLException {
+        clidao.excluir(pedido);
     }
 
     public void excluirFuncionario(Funcionario funcionario) throws ClassNotFoundException, SQLException {

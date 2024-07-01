@@ -481,12 +481,12 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
             String nome = jTeNome.getText();
             Date inccont = formato.parse(jftNascimento1.getText());
             Date fimcont = formato.parse(jftNascimento2.getText());
-            String sexo;
+            char sexo;
 
             if (buttonGroup1.getSelection().getMnemonic() == 1) {
-                sexo = "m";
+                sexo = 'm';
             } else {
-                sexo = "f";
+                sexo = 'f';
             }
 
             String cpf = jtfCpf.getText();
@@ -499,9 +499,9 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
             Funcionario funcionario = new Funcionario(inccont, fimcont, salario, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
             try {
                 gerIG.getGerDom().inserirFuncionario(funcionario);
-                JOptionPane.showMessageDialog(this, "Funcionário Inserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Funcionário Inserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
             } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (ParseException ex) {

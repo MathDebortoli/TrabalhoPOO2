@@ -20,9 +20,6 @@ public class Pedido implements Serializable {
     @Column(nullable = false)
     private boolean pago;
 
-    @Column(nullable = false)
-    private double precoPedido;
-
     @Column
     private String formaPagamento;
 
@@ -44,19 +41,15 @@ public class Pedido implements Serializable {
     public Pedido(){
     }
 
-    public Pedido(int idPedido, Date dataPedido, boolean pago, double precoPedido, String formaPagamento, Funcionario funcionario, Cliente cliente, List<Servico> servicos) {
-        this.idPedido = idPedido;
+    public Pedido(Date dataPedido,boolean pago, String formaPagamento, Funcionario funcionario, Cliente cliente, List<Servico> servicos) {
         this.dataPedido = dataPedido;
         this.pago = pago;
-        this.precoPedido = precoPedido;
         this.formaPagamento = formaPagamento;
         this.funcionario = funcionario;
         this.cliente = cliente;
         this.servicos = servicos;
     }
     
-    
-
     public int getIdPedido() {
         return idPedido;
     }
@@ -67,10 +60,6 @@ public class Pedido implements Serializable {
 
     public boolean getPago() {
         return pago;
-    }
-
-    public double getPrecoPedido() {
-        return precoPedido;
     }
 
     public String getFormaPagamento() {
