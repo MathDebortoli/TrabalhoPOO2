@@ -52,9 +52,31 @@ public class GerDominio {
     public void excluirServico(Servico servico) throws ClassNotFoundException, SQLException {
         clidao.excluir(servico);
     }
+    
+        public void editarPedido(Pedido pedido) throws ClassNotFoundException, SQLException {
+        clidao.alterar(pedido);
+    }
+
+    public void editarFuncionario(Funcionario funcionario) throws ClassNotFoundException, SQLException {
+        clidao.alterar(funcionario);
+    }
+
+    public void editarCliente(Cliente cliente) throws ClassNotFoundException, SQLException {
+        gendao.alterar(cliente);
+    }
+
+    public void editarServico(Servico servico) throws ClassNotFoundException, SQLException {
+        clidao.alterar(servico);
+    }
+    
+    
 
     public List listar(Class classe) throws ClassNotFoundException, SQLException {
         return gendao.listar(classe);
+    }
+
+    public List<Cliente> pesquisarCliente(String pesq) {
+        return clidao.pesquisarPorNome(pesq);
     }
 
 }

@@ -17,14 +17,12 @@ import model.Servico;
 
 public class JdlCadastroPedido extends javax.swing.JDialog {
 
-    private GerInterfaceGrafica gerIG;
     ItemPedidoAbstractTableModel itemped;
 
-    public JdlCadastroPedido(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
+    public JdlCadastroPedido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gerIG = gerIG;
         initComponents();
-
+        
         itemped = new ItemPedidoAbstractTableModel();
         jTable1.setModel(itemped);
     }
@@ -416,7 +414,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
 
             Pedido pedido = new Pedido(data, pago, formaPagamento, fun, cli, lista);
             try {
-                gerIG.getGerDom().inserirPedido(pedido);
+                GerInterfaceGrafica.getMyInstance().getGerDom().inserirPedido(pedido);
                 JOptionPane.showMessageDialog(this, "Pedido Inserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
@@ -434,7 +432,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosNormal();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
@@ -442,9 +440,9 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBox13ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        gerIG.carregarCombo(jComboBox10, Cliente.class);
-        gerIG.carregarCombo(jComboBox13, Funcionario.class);
-        gerIG.carregarCombo(jComboBox11, Servico.class);
+        GerInterfaceGrafica.getMyInstance().carregarCombo(jComboBox10, Cliente.class);
+        GerInterfaceGrafica.getMyInstance().carregarCombo(jComboBox13, Funcionario.class);
+        GerInterfaceGrafica.getMyInstance().carregarCombo(jComboBox11, Servico.class);
     }//GEN-LAST:event_formComponentShown
 
     private void jComboBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox10ActionPerformed
@@ -457,7 +455,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Remover
-        
+
         List lista = null;
         int linha = jTable1.getSelectedRow();
 
@@ -470,7 +468,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecione uma Linha da Tabela!", "ERRO!", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         itemped.remover(linha);
         jTable1.setModel(itemped);
     }//GEN-LAST:event_jButton5ActionPerformed

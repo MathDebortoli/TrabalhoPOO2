@@ -11,11 +11,9 @@ import model.Servico;
 
 public class JdlCadastroServico extends javax.swing.JDialog {
 
-    private GerInterfaceGrafica gerIG;
 
-    public JdlCadastroServico(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
+    public JdlCadastroServico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gerIG = gerIG;
         initComponents();
     }
 
@@ -88,7 +86,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
         jLabel6.setText("Nome: ");
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setMnemonic(1);
+        jRadioButton1.setMnemonic('\u0001');
         jRadioButton1.setText("Sim");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,7 +95,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
         });
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setMnemonic(2);
+        jRadioButton2.setMnemonic('\u0002');
         jRadioButton2.setSelected(true);
         jRadioButton2.setText("Não");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -156,10 +154,11 @@ public class JdlCadastroServico extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jRadioButton2)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -423,7 +422,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+        GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosNormal();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -447,7 +446,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
 
         Servico servico = new Servico(tipo, cabpref, quimica, preco, nome, temp, tesoura, maquina, shampoo, condicionador, navalha, foto, pedidos);
         try {
-            gerIG.getGerDom().inserirServico(servico);
+            GerInterfaceGrafica.getMyInstance().getGerDom().inserirServico(servico);
             JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico()+ "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);

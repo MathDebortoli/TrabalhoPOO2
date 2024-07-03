@@ -50,6 +50,18 @@ public abstract class Pessoa implements Serializable {
         this.bairro = bairro;
         this.estado = estado;
     }
+    
+       public Pessoa(int id, String nome, String cpf, Date dataNascimento, char sexo, byte[] foto, String cidade, String bairro, String estado) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+        this.foto = foto;
+        this.cidade = cidade;
+        this.bairro = bairro;
+        this.estado = estado;
+        this.idPessoa = id;
+    }
 
     public int getIdPessoa() {
         return idPessoa;
@@ -86,11 +98,17 @@ public abstract class Pessoa implements Serializable {
     public byte[] getFoto() {
         return foto;
     }
+    
+    public int getId(){
+        return idPessoa;
+    }
 
     @Override
     public String toString() {
         return nome;
     }
+    
+    
 
     
 }

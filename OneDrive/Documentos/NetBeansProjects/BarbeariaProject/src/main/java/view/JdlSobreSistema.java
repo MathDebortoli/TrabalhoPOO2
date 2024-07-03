@@ -1,18 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package view;
-
-import gertarefas.GerInterfaceGrafica;
-
 
 public class JdlSobreSistema extends javax.swing.JDialog {
 
-   private GerInterfaceGrafica gerIG;
-    public JdlSobreSistema(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
+    public JdlSobreSistema(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gerIG = gerIG;
         initComponents();
     }
 

@@ -18,6 +18,11 @@ public class Cliente extends Pessoa implements Serializable {
         super(nome, cpf, dataNascimento, sexo, foto, cidade, bairro, estado);
         this.telefone = telefone;
     }
+    
+        public Cliente(int id, String telefone, String nome, String cpf, Date dataNascimento, char sexo, byte[] foto, String cidade, String bairro, String estado) {
+        super(id,nome, cpf, dataNascimento, sexo, foto, cidade, bairro, estado);
+        this.telefone = telefone;
+    }
 
     public String getTelefone() {
         return telefone;

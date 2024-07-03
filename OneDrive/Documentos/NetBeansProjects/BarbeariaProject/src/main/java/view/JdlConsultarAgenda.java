@@ -1,13 +1,9 @@
 package view;
 
-import gertarefas.GerInterfaceGrafica;
-
 public class JdlConsultarAgenda extends javax.swing.JDialog {
-    private GerInterfaceGrafica gerIG;
-  
-    public JdlConsultarAgenda(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
+
+    public JdlConsultarAgenda(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gerIG = gerIG;
         initComponents();
     }
 

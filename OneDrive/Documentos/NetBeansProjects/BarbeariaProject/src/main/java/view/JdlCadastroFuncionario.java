@@ -13,11 +13,8 @@ import model.Funcionario;
 
 public class JdlCadastroFuncionario extends javax.swing.JDialog {
 
-    GerInterfaceGrafica gerIG;
-
-    public JdlCadastroFuncionario(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
+    public JdlCadastroFuncionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gerIG = gerIG;
         initComponents();
     }
 
@@ -498,8 +495,8 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
 
             Funcionario funcionario = new Funcionario(inccont, fimcont, salario, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
             try {
-                gerIG.getGerDom().inserirFuncionario(funcionario);
-                JOptionPane.showMessageDialog(this, "Funcionário: " + funcionario.getNome()+"\nInserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                GerInterfaceGrafica.getMyInstance().getGerDom().inserirFuncionario(funcionario);
+                JOptionPane.showMessageDialog(this, "Funcionário: " + funcionario.getNome() + "\nInserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
@@ -510,7 +507,7 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosNormal();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

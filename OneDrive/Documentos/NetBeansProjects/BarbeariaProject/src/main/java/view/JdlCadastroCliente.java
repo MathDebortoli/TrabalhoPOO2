@@ -6,16 +6,19 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
 import model.Cliente;
 
 public class JdlCadastroCliente extends javax.swing.JDialog {
+    
+    private Cliente selecionado = null;
 
-    GerInterfaceGrafica gerIG;
-
-    public JdlCadastroCliente(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
+    public JdlCadastroCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gerIG = gerIG;
         initComponents();
         jButton3.setEnabled(false);
     }
@@ -441,7 +444,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
 
             Cliente cliente = new Cliente(telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
             try {
-                gerIG.getGerDom().inserirCliente(cliente);
+                GerInterfaceGrafica.getMyInstance().getGerDom().inserirCliente(cliente);
                 JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -450,15 +453,69 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(this, "Erro nos dados. " + ex.getMessage(), "ERRO Cadastro Cliente", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        gerIG.abrirJanGenCadastros();
+         selecionado = (Cliente) GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosSelecionado();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormatter df = new DateFormatter(sdf);
+        jftNascimento.setFormatterFactory(new DefaultFormatterFactory(df));
+
+        // Agora você pode definir o texto formatado
+        jftNascimento.setText(sdf.format(selecionado.getDataNascimento()));
+
+        jTeNome.setText(selecionado.getNome());
+        if (selecionado.getSexo() == 'm') {
+            jRadioButton1.setSelected(true);
+            jRadioButton2.setSelected(false);
+        } else {
+            jRadioButton2.setSelected(true);
+            jRadioButton1.setSelected(false);
+
+        }
+        jtfCpf.setText(selecionado.getCpf());
+        jTfTelefone.setText(selecionado.getTelefone());
+
+        jTextCidade.setText(selecionado.getEstado());
+        jTextCidade1.setText(selecionado.getCidade());
+        jTextBairro.setText(selecionado.getBairro());
+
+        jButton3.setEnabled(true);
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        gerIG.abrirJanGenCadastros();
+        try {
+            //Salvar
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            char sexo;
+            String nome = jTeNome.getText();
+            Date nascimento = formato.parse(jftNascimento.getText());
+            if (buttonGroup1.getSelection().getMnemonic() == 1) {
+                sexo = 'm';
+            } else {
+                sexo = 'f';
+            }
+            String cpf = jtfCpf.getText();
+            String telefone = jTfTelefone.getText();
+            String cidade = jTextCidade1.getText();
+            String bairro = jTextBairro.getText();
+            String estado = jTextCidade.getText();
+            byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
+
+            Cliente cliente = new Cliente(selecionado.getId(),telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
+            try {
+                GerInterfaceGrafica.getMyInstance().getGerDom().editarCliente(cliente);
+                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nEditado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                jButton3.setEnabled(false);
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Editar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (ParseException ex) {
+            Logger.getLogger(JdlCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextCidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidade1ActionPerformed

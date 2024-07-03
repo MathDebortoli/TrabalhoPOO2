@@ -11,7 +11,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import model.Cliente;
 import view.FrmInit;
 import view.JdlCadastroCliente;
 import view.JdlCadastroFuncionario;
@@ -37,10 +36,6 @@ public class GerInterfaceGrafica {
     private JdlCadastroFuncionario cadfunc = null;
     private JdlGerenciarCadastros gercad = null;
 
-    private GerInterfaceGrafica() {
-
-    }
-
     public static GerInterfaceGrafica getMyInstance() {
         if (instance == null) {
             instance = new GerInterfaceGrafica();
@@ -48,22 +43,22 @@ public class GerInterfaceGrafica {
         return instance;
     }
 
-    private JDialog abrirJanelaDialog(java.awt.Frame parent, JDialog dialog, Class classe) {
-        if (dialog == null) {
+    private JDialog abrirJanelaDialog(java.awt.Frame parent, JDialog dlg, Class classe) {
+        if (dlg == null) {
             try {
-                dialog = (JDialog) classe.getConstructor(Frame.class, boolean.class, GerInterfaceGrafica.class)
-                        .newInstance(parent, true, getMyInstance());
-            } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                JOptionPane.showMessageDialog(parent, "Erro ao abrir a Janela " + classe.getName() + ": " + e.getMessage());
+                dlg = (JDialog) classe.getConstructor(Frame.class, boolean.class).newInstance(parent, true);
+            } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                JOptionPane.showMessageDialog(parent, "Erro ao abrir a janela " + classe.getName() + ". " + ex.getMessage());
             }
         }
-        dialog.setVisible(true);
-        return dialog;
+        dlg.setVisible(true);
+
+        return dlg;
     }
 
     public void abrirJanPrincial() {
         if (frmprincipal == null) {
-            frmprincipal = new FrmInit(instance);
+            frmprincipal = new FrmInit();
         }
         frmprincipal.setVisible(true);
     }
@@ -73,31 +68,36 @@ public class GerInterfaceGrafica {
     }
 
     public void abrirJanCadPedido() {
-        abrirJanelaDialog(frmprincipal, cadpedido, JdlCadastroPedido.class);
+        cadpedido = (JdlCadastroPedido) abrirJanelaDialog(frmprincipal, cadpedido, JdlCadastroPedido.class);
     }
 
     public void abrirJanCadCliente() {
-        abrirJanelaDialog(frmprincipal, cadcliente, JdlCadastroCliente.class);
+        cadcliente = (JdlCadastroCliente) abrirJanelaDialog(frmprincipal, cadcliente, JdlCadastroCliente.class);
     }
 
     public void abrirJanCadServico() {
-        abrirJanelaDialog(frmprincipal, cadservico, JdlCadastroServico.class);
+        cadservico = (JdlCadastroServico) abrirJanelaDialog(frmprincipal, cadservico, JdlCadastroServico.class);
     }
 
     public void abrirJanConsultarAgenda() {
-        abrirJanelaDialog(frmprincipal, consultagenda, JdlConsultarAgenda.class);
+        consultagenda = (JdlConsultarAgenda) abrirJanelaDialog(frmprincipal, consultagenda, JdlConsultarAgenda.class);
     }
 
     public void abrirJanCadFuncionario() {
-        abrirJanelaDialog(frmprincipal, cadfunc, JdlCadastroFuncionario.class);
+        cadfunc = (JdlCadastroFuncionario) abrirJanelaDialog(frmprincipal, cadfunc, JdlCadastroFuncionario.class);
     }
 
     public void abrirJanSobreSistema() {
-        abrirJanelaDialog(frmprincipal, sobresistema, JdlSobreSistema.class);
+        sobresistema = (JdlSobreSistema) abrirJanelaDialog(frmprincipal, sobresistema, JdlSobreSistema.class);
     }
 
-    public void abrirJanGenCadastros() {
-        abrirJanelaDialog(frmprincipal, gercad, JdlGerenciarCadastros.class);
+    public Object abrirJanGenCadastrosSelecionado() {
+        gercad = (JdlGerenciarCadastros) abrirJanelaDialog(frmprincipal, gercad, JdlGerenciarCadastros.class);
+        return gercad.getSelecionado();
+    }
+
+    public void abrirJanGenCadastrosNormal() {
+        gercad = (JdlGerenciarCadastros) abrirJanelaDialog(frmprincipal, gercad, JdlGerenciarCadastros.class);
     }
 
     public void carregarCombo(JComboBox combo, Class classe) {

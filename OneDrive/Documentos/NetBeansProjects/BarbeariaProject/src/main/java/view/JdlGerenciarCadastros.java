@@ -17,17 +17,17 @@ import model.Servico;
 
 public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
-    private GerInterfaceGrafica gerIG;
-
     private ClienteAbstractTableModel cliTableModel;
     private ServicoAbstractTableModel serTableModel;
     private PedidoAbstractTableModel pedTableModel;
     private FuncionarioAbstractTableModel funTableModel;
+    private Object selecionado;
 
-    public JdlGerenciarCadastros(java.awt.Frame parent, boolean modal, GerInterfaceGrafica gerIG) {
+    public JdlGerenciarCadastros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.gerIG = gerIG;
         initComponents();
+
+        selecionado = null;
 
         cliTableModel = new ClienteAbstractTableModel();
         serTableModel = new ServicoAbstractTableModel();
@@ -35,7 +35,6 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         funTableModel = new FuncionarioAbstractTableModel();
 
         jTable1.setModel(cliTableModel);
-
     }
 
     /**
@@ -344,7 +343,7 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         //Cliente
         if (buttonGroup1.getSelection().getMnemonic() == 1) {
             try {
-                lista = gerIG.getGerDom().listar(Cliente.class);
+                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Cliente.class);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -352,7 +351,7 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
         } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
             try {
-                lista = gerIG.getGerDom().listar(Servico.class);
+                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Servico.class);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -360,26 +359,27 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
         } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
             try {
-                lista = gerIG.getGerDom().listar(Funcionario.class);
+                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Funcionario.class);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
             }
             funTableModel.setLista(lista);
         } else {
             try {
-                lista = gerIG.getGerDom().listar(Pedido.class);
+                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Pedido.class);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
             }
             pedTableModel.setLista(lista);
         }
-
-
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    public Object getSelecionado(){
+        return selecionado;
+    }
+    
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Editar
-        /*
 
         int linha = jTable1.getSelectedRow();
 
@@ -395,16 +395,9 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
 
         if (buttonGroup1.getSelection().getMnemonic() == 1) {
             Cliente cliente = cliTableModel.getCliente(linha);
-            try {
-                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
-                cliTableModel.setLista(null);
-                jTable1.setModel(cliTableModel);
-            } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
-            }
+            selecionado = cliente;
+            this.dispose();
         }
-         */
-
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
@@ -447,10 +440,10 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         if (buttonGroup1.getSelection().getMnemonic() == 1) {
             Cliente cliente = cliTableModel.getCliente(linha);
             try {
-                gerIG.getGerDom().excluirCliente(cliente);
+                GerInterfaceGrafica.getMyInstance().getGerDom().excluirCliente(cliente);
                 JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    lista = gerIG.getGerDom().listar(Cliente.class);
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Cliente.class);
                     cliTableModel.setLista(lista);
                 } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
@@ -462,10 +455,10 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
             Servico servico = serTableModel.getServico(linha);
             try {
-                gerIG.getGerDom().excluirServico(servico);
+                GerInterfaceGrafica.getMyInstance().getGerDom().excluirServico(servico);
                 JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    lista = gerIG.getGerDom().listar(Servico.class);
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Servico.class);
                     serTableModel.setLista(lista);
                 } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
@@ -475,13 +468,12 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
 
         } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
-
             Funcionario funcionario = funTableModel.getFuncionario(linha);
             try {
-                gerIG.getGerDom().excluirFuncionario(funcionario);
+                GerInterfaceGrafica.getMyInstance().getGerDom().excluirFuncionario(funcionario);
                 JOptionPane.showMessageDialog(this, "Funcionario: " + funcionario.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    lista = gerIG.getGerDom().listar(Funcionario.class);
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Funcionario.class);
                     funTableModel.setLista(lista);
                 } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
@@ -493,10 +485,10 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         } else {
             Pedido pedido = pedTableModel.getPedido(linha);
             try {
-                gerIG.getGerDom().excluirPedido(pedido);
+                GerInterfaceGrafica.getMyInstance().getGerDom().excluirPedido(pedido);
                 JOptionPane.showMessageDialog(this, "Pedido Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
                 try {
-                    lista = gerIG.getGerDom().listar(Pedido.class);
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Pedido.class);
                     pedTableModel.setLista(lista);
                 } catch (ClassNotFoundException | SQLException ex) {
                     Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
@@ -504,18 +496,18 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
-
         }
-
-
     }//GEN-LAST:event_jButton6ActionPerformed
+
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        List lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarCliente("Pedro");
+        cliTableModel.setLista(lista);
+        jTable1.setModel(cliTableModel);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
