@@ -14,7 +14,7 @@ import javax.swing.text.DefaultFormatterFactory;
 import model.Cliente;
 
 public class JdlCadastroCliente extends javax.swing.JDialog {
-    
+
     private Cliente selecionado = null;
 
     public JdlCadastroCliente(java.awt.Frame parent, boolean modal) {
@@ -349,7 +349,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(89, 89, 89)
+                                .addGap(100, 100, 100)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -446,6 +446,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             try {
                 GerInterfaceGrafica.getMyInstance().getGerDom().inserirCliente(cliente);
                 JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                limparCampos();
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -456,7 +457,20 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-         selecionado = (Cliente) GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosSelecionado();
+        limparCampos();
+        try {
+            selecionado = (Cliente) GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosSelecionado();
+        } catch (ClassCastException e) {
+            JOptionPane.showMessageDialog(this, "Voce Precisa Selecionar Por um Cliente!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            jButton3.setEnabled(false);
+            jButton6.setEnabled(true);
+            return;
+        }
+
+        if (selecionado == null) {
+            JOptionPane.showMessageDialog(this, "Não foi Selecionado nenhum Cliente!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         DateFormatter df = new DateFormatter(sdf);
@@ -482,12 +496,12 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jTextBairro.setText(selecionado.getBairro());
 
         jButton3.setEnabled(true);
-
+        jButton6.setEnabled(false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            //Salvar
+            //Editar
             SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
             char sexo;
             String nome = jTeNome.getText();
@@ -504,11 +518,13 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             String estado = jTextCidade.getText();
             byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
 
-            Cliente cliente = new Cliente(selecionado.getId(),telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
+            Cliente cliente = new Cliente(selecionado.getId(), telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
             try {
                 GerInterfaceGrafica.getMyInstance().getGerDom().editarCliente(cliente);
                 JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nEditado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
                 jButton3.setEnabled(false);
+                jButton6.setEnabled(true);
+                limparCampos();
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Editar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
@@ -517,6 +533,20 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void limparCampos() {
+        selecionado = null;
+        jTeNome.setText("");
+        jtfCpf.setText("");
+        jTfTelefone.setText("");
+        jTextCidade.setText("");
+        jTextCidade1.setText("");
+        jTextBairro.setText("");
+
+        // Agora você pode definir o texto formatado
+        jftNascimento.setText("");
+
+    }
 
     private void jTextCidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidade1ActionPerformed
         // TODO add your handling code here:

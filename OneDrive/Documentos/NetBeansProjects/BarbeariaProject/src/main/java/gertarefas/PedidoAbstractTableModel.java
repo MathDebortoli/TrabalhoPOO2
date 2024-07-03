@@ -1,5 +1,6 @@
 package gertarefas;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -16,23 +17,24 @@ public class PedidoAbstractTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 7;
     }
 
     // Títulos das colunas
     @Override
     public String getColumnName(int column) {
-        String nomesColunas[] = {"Data", "Pago", "Cliente", "Servicos", "Forma Pagamento", "Funcionario"};
+        String nomesColunas[] = {"Data", "Pago", "Cliente", "Servicos", "Forma Pagamento", "Funcionario", "Valor Total"};
         return nomesColunas[column];
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Pedido item = listaItens.get(rowIndex);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         return switch (columnIndex) {
             case 0 ->
-                item.getDataPedido();
+                dateFormat.format(item.getDataPedido());
             case 1 ->
                 item.getPago();
             case 2 ->
@@ -43,6 +45,8 @@ public class PedidoAbstractTableModel extends AbstractTableModel {
                 item.getFormaPagamento();
             case 5 ->
                 item.getFuncionario();
+            case 6 ->
+                "R$ " + item.calcTotal();
             default ->
                 null;
         };

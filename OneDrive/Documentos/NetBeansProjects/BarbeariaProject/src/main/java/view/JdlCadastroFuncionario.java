@@ -9,13 +9,20 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.DefaultFormatterFactory;
+import model.Cliente;
 import model.Funcionario;
 
 public class JdlCadastroFuncionario extends javax.swing.JDialog {
 
+    private Funcionario selecionado = null;
+
     public JdlCadastroFuncionario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        jButton3.setEnabled(false);
     }
 
     /**
@@ -94,7 +101,7 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
         jLabel3.setText("Sexo:");
 
         buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setMnemonic(1);
+        jRadioButton1.setMnemonic('\u0001');
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Masculino");
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +111,7 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
         });
 
         buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setMnemonic(2);
+        jRadioButton2.setMnemonic('\u0002');
         jRadioButton2.setText("Feminino");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
@@ -382,11 +389,11 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(53, 53, 53)
+                                .addGap(41, 41, 41)
                                 .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton7)
-                                .addGap(12, 12, 12)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton3))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(94, 94, 94)
@@ -497,6 +504,7 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
             try {
                 GerInterfaceGrafica.getMyInstance().getGerDom().inserirFuncionario(funcionario);
                 JOptionPane.showMessageDialog(this, "Funcionário: " + funcionario.getNome() + "\nInserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                limparCampos();
             } catch (ClassNotFoundException | SQLException ex) {
                 JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
@@ -507,32 +515,112 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosNormal();
+        //Selecionar
+        
+        limparCampos();
+        try {
+            selecionado = (Funcionario) GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosSelecionado();
+        } catch (ClassCastException e) {
+            JOptionPane.showMessageDialog(this, "Voce Precisa Selecionar Por um Funcionario!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            jButton3.setEnabled(false);
+            jButton6.setEnabled(true);
+            return;
+        }
+
+        if (selecionado == null) {
+            JOptionPane.showMessageDialog(this, "Não foi Selecionado nenhum Funcionário!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormatter df = new DateFormatter(sdf);
+        jftNascimento.setFormatterFactory(new DefaultFormatterFactory(df));
+        jftNascimento1.setFormatterFactory(new DefaultFormatterFactory(df));
+        jftNascimento2.setFormatterFactory(new DefaultFormatterFactory(df));
+
+        jftNascimento.setText(sdf.format(selecionado.getDataNascimento()));
+        jftNascimento1.setText(sdf.format(selecionado.getDataContratoinc()));
+        jftNascimento2.setText(sdf.format(selecionado.getDataContratofim()));
+
+        jTeNome.setText(selecionado.getNome());
+
+        if (selecionado.getSexo() == 'm') {
+            jRadioButton1.setSelected(true);
+            jRadioButton2.setSelected(false);
+        } else {
+            jRadioButton2.setSelected(true);
+            jRadioButton1.setSelected(false);
+        }
+
+        jtfCpf.setText(selecionado.getCpf());
+        jTeSalario.setText(String.valueOf(selecionado.getSalario()));
+
+        jTextCidade.setText(selecionado.getCidade());
+        jTextEstado.setText(selecionado.getEstado());
+        jTextBairro.setText(selecionado.getBairro());
+
+        jButton3.setEnabled(true);
+        jButton6.setEnabled(false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        //Editar
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+        try {
+            Date nascimento = formato.parse(jftNascimento.getText());
+            String nome = jTeNome.getText();
+            Date inccont = formato.parse(jftNascimento1.getText());
+            Date fimcont = formato.parse(jftNascimento2.getText());
+            char sexo;
+
+            if (buttonGroup1.getSelection().getMnemonic() == 1) {
+                sexo = 'm';
+            } else {
+                sexo = 'f';
+            }
+
+            String cpf = jtfCpf.getText();
+            double salario = Double.parseDouble(jTeSalario.getText());
+            String cidade = jTextCidade.getText();
+            String bairro = jTextBairro.getText();
+            String estado = jTextEstado.getText();
+            byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
+
+            Funcionario funcionario = new Funcionario(selecionado.getId(), inccont, fimcont, salario, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
+            try {
+                GerInterfaceGrafica.getMyInstance().getGerDom().editarFuncionario(funcionario);
+                JOptionPane.showMessageDialog(this, "Funcionário: " + funcionario.getNome() + "\nEditado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                jButton3.setEnabled(false);
+                jButton6.setEnabled(true);
+                limparCampos();
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(this, "Falha ao Editar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (ParseException ex) {
+            Logger.getLogger(JdlCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void limparCampos() {
+        selecionado = null;
+        jTeNome.setText("");
+        jtfCpf.setText("");
+        jTeSalario.setText("");
+        jTextCidade.setText("");
+        jTextEstado.setText("");
+        jTextBairro.setText("");
+        jftNascimento.setText("");
+        jftNascimento1.setText("");
+        jftNascimento2.setText("");
+
+    }
 
     private void jTeSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTeSalarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTeSalarioActionPerformed
 
-    /* private void inserirTabela(String nome, String telefone, String cpf, String nascimento, String sexo, String estado, String cidade, String bairro) {
-        if (table != null) {
-            ((DefaultTableModel) table.getModel()).addRow(new Object[8]);
-            int linha = table.getRowCount() - 1;
-            int coluna = 0;
-            table.setValueAt(nome, linha, coluna++);
-            table.setValueAt(cpf, linha, coluna++);
-            table.setValueAt(telefone, linha, coluna++);
-            table.setValueAt(sexo, linha, coluna++);
-            table.setValueAt(nascimento, linha, coluna++);
-            table.setValueAt(cidade, linha, coluna++);
-            table.setValueAt(bairro, linha, coluna++);
-            table.setValueAt(estado, linha, coluna++);
-        }
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

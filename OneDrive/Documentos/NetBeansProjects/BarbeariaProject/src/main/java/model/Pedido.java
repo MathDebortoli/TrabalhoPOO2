@@ -16,7 +16,7 @@ public class Pedido implements Serializable {
     @Column
     @Temporal(TemporalType.DATE)
     private Date dataPedido;
-
+    
     @Column(nullable = false)
     private boolean pago;
 
@@ -72,6 +72,14 @@ public class Pedido implements Serializable {
 
     public List<Servico> getServicos() {
         return servicos;
+    }
+    
+    public double calcTotal(){
+        double preco = 0;
+        for(Servico servico : servicos){
+            preco += servico.getPreco();
+        }
+        return preco;
     }
 
 }

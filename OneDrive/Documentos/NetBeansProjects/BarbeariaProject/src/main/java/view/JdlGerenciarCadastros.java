@@ -21,7 +21,7 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
     private ServicoAbstractTableModel serTableModel;
     private PedidoAbstractTableModel pedTableModel;
     private FuncionarioAbstractTableModel funTableModel;
-    private Object selecionado;
+    private Object selecionado = null;
 
     public JdlGerenciarCadastros(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -374,12 +374,14 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    public Object getSelecionado(){
+    public Object getSelecionado() {
         return selecionado;
     }
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //Editar
+
+        Object obj = null;
 
         int linha = jTable1.getSelectedRow();
 
@@ -394,8 +396,19 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         }
 
         if (buttonGroup1.getSelection().getMnemonic() == 1) {
-            Cliente cliente = cliTableModel.getCliente(linha);
-            selecionado = cliente;
+            obj = cliTableModel.getCliente(linha);
+            selecionado = obj;
+            this.dispose();
+        }
+
+        if (buttonGroup1.getSelection().getMnemonic() == 2) {
+            obj = serTableModel.getServico(linha);
+            selecionado = obj;
+            this.dispose();
+
+        } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
+            obj = funTableModel.getFuncionario(linha);
+            selecionado = obj;
             this.dispose();
         }
     }//GEN-LAST:event_jButton5ActionPerformed

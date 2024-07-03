@@ -40,7 +40,7 @@ public class ServicoAbstractTableModel extends AbstractTableModel {
             case 3 ->
                 item.getQuimica();
             case 4 ->
-                item.getPreco();
+               "R$ " + item.getPreco();
             case 5 ->
                 item.getTempoMedio();
             case 6 ->

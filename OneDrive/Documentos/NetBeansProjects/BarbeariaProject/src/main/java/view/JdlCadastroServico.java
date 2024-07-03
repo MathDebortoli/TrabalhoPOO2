@@ -4,17 +4,19 @@ import gertarefas.FuncoesUteis;
 import gertarefas.GerInterfaceGrafica;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import model.Funcionario;
 import model.Servico;
 
 public class JdlCadastroServico extends javax.swing.JDialog {
 
+    private Servico selecionado = null;
 
     public JdlCadastroServico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        jButton6.setEnabled(false);
     }
 
     /**
@@ -346,11 +348,11 @@ public class JdlCadastroServico extends javax.swing.JDialog {
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(29, 29, 29)
+                                    .addGap(17, 17, 17)
                                     .addComponent(jButton7)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jButton4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jButton6)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(217, 217, 217)
@@ -418,11 +420,83 @@ public class JdlCadastroServico extends javax.swing.JDialog {
     }//GEN-LAST:event_jCheckBox4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        //Editar
+        String tipo = (String) jComboBox2.getSelectedItem();
+        String cabpref = (String) jComboBox1.getSelectedItem();
+        boolean quimica;
+        quimica = buttonGroup1.getSelection().getMnemonic() == 1;
+        String nome = jTextField2.getText();
+        double preco = Double.parseDouble(jTextField1.getText());
+        int temp = Integer.parseInt(jTextField4.getText());
+
+        boolean tesoura = jCheckBox1.isSelected();
+        boolean maquina = jCheckBox2.isSelected();
+        boolean condicionador = jCheckBox3.isSelected();
+        boolean navalha = jCheckBox4.isSelected();
+        boolean shampoo = jCheckBox5.isSelected();
+
+        byte foto[] = FuncoesUteis.IconToBytes(jLabel10.getIcon());
+        List pedidos = null;
+
+        Servico servico = new Servico(selecionado.getIdServico(), tipo, cabpref, quimica, preco, nome, temp, tesoura, maquina, shampoo, condicionador, navalha, foto, pedidos);
+        try {
+            GerInterfaceGrafica.getMyInstance().getGerDom().editarServico(servico);
+            JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nEditado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            jButton7.setEnabled(true);
+            jButton6.setEnabled(false);
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Falha ao Editar! \n" + ex.getMessage(), "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void limparCampos() {
+        selecionado = null;
+        jTextField2.setText("");
+        jTextField1.setText("");
+        jTextField4.setText("");
+    }
+
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosNormal();
+        try {
+            selecionado = (Servico) GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosSelecionado();
+        } catch (ClassCastException e) {
+            JOptionPane.showMessageDialog(this, "Voce Precisa Selecionar Por um Serviço!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            jButton6.setEnabled(false);
+            jButton7.setEnabled(true);
+            return;
+        }
+
+        if (selecionado == null) {
+            JOptionPane.showMessageDialog(this, "Não foi Selecionado nenhum Serviço!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        jComboBox2.setSelectedItem(selecionado.getTipo());
+        jComboBox1.setSelectedItem(selecionado.getCabeloPreferencial());
+
+        if (selecionado.getQuimica() == true) {
+            jRadioButton1.setSelected(true);
+            jRadioButton2.setSelected(false);
+        } else {
+            jRadioButton2.setSelected(true);
+            jRadioButton1.setSelected(false);
+        }
+
+        jTextField2.setText(selecionado.getNomeServico());
+        jTextField1.setText(String.valueOf(selecionado.getPreco()));
+        jTextField4.setText(String.valueOf(selecionado.getTempoMedio()));
+
+        jCheckBox1.setSelected(selecionado.getTesoura());
+        jCheckBox2.setSelected(selecionado.getMaquina());
+        jCheckBox3.setSelected(selecionado.getCondicionador());
+        jCheckBox4.setSelected(selecionado.getShampoo());
+        jCheckBox5.setSelected(selecionado.getNavalha());
+
+        jButton7.setEnabled(false);
+        jButton6.setEnabled(true);
+
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -447,7 +521,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
         Servico servico = new Servico(tipo, cabpref, quimica, preco, nome, temp, tesoura, maquina, shampoo, condicionador, navalha, foto, pedidos);
         try {
             GerInterfaceGrafica.getMyInstance().getGerDom().inserirServico(servico);
-            JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico()+ "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }

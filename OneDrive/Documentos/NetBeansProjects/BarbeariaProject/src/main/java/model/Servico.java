@@ -55,8 +55,8 @@ public class Servico implements Serializable {
             inverseJoinColumns = {
                 @JoinColumn(name = "idPedido")})
     private List<Pedido> pedidos;
-    
-    public Servico(){
+
+    public Servico() {
     }
 
     public Servico(String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, double tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
@@ -74,7 +74,23 @@ public class Servico implements Serializable {
         this.imagemServico = imagemServico;
         this.pedidos = pedidos;
     }
-    
+
+    public Servico(int id, String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, double tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
+        this.idServico = id;
+        this.tipo = tipo;
+        this.cabeloPreferencial = cabeloPreferencial;
+        this.quimica = quimica;
+        this.preco = preco;
+        this.nomeServico = nomeServico;
+        this.tempoMedio = tempoMedio;
+        this.tesoura = tesoura;
+        this.maquina = maquina;
+        this.shampoo = shampoo;
+        this.condicionador = condicionador;
+        this.navalha = navalha;
+        this.imagemServico = imagemServico;
+        this.pedidos = pedidos;
+    }
 
     public boolean getTesoura() {
         return tesoura;
@@ -136,6 +152,5 @@ public class Servico implements Serializable {
     public String toString() {
         return nomeServico;
     }
-    
 
 }
