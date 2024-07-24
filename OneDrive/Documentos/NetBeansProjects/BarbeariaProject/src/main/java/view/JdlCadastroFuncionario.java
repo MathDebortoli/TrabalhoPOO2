@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.DefaultFormatterFactory;
-import model.Cliente;
 import model.Funcionario;
 
 public class JdlCadastroFuncionario extends javax.swing.JDialog {

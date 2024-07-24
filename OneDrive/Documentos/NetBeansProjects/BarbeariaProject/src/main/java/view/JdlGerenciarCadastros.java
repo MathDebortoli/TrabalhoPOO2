@@ -410,6 +410,11 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             obj = funTableModel.getFuncionario(linha);
             selecionado = obj;
             this.dispose();
+            
+        } else if (buttonGroup1.getSelection().getMnemonic() == 4) {
+            obj = pedTableModel.getPedido(linha);
+            selecionado = obj;
+            this.dispose();
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -426,7 +431,6 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
         pedTableModel.setLista(null);
         jTable1.setModel(pedTableModel);
-
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed

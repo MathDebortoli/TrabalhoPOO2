@@ -3,6 +3,7 @@ package model;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -16,7 +17,7 @@ public abstract class Pessoa implements Serializable {
     protected String nome;
 
     @Column(length = 14, nullable = false, unique = true)
-    private String cpf;
+    protected String cpf;
 
     @Temporal(value = TemporalType.DATE)
     @Column(name = "dataNascimento")
@@ -36,8 +37,8 @@ public abstract class Pessoa implements Serializable {
 
     @Lob
     private byte[] foto;
-    
-    public Pessoa(){
+
+    public Pessoa() {
     }
 
     public Pessoa(String nome, String cpf, Date dataNascimento, char sexo, byte[] foto, String cidade, String bairro, String estado) {
@@ -50,8 +51,8 @@ public abstract class Pessoa implements Serializable {
         this.bairro = bairro;
         this.estado = estado;
     }
-    
-       public Pessoa(int id, String nome, String cpf, Date dataNascimento, char sexo, byte[] foto, String cidade, String bairro, String estado) {
+
+    public Pessoa(int id, String nome, String cpf, Date dataNascimento, char sexo, byte[] foto, String cidade, String bairro, String estado) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -98,8 +99,8 @@ public abstract class Pessoa implements Serializable {
     public byte[] getFoto() {
         return foto;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return idPessoa;
     }
 
@@ -107,8 +108,20 @@ public abstract class Pessoa implements Serializable {
     public String toString() {
         return nome;
     }
-    
-    
 
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        return Objects.equals(this.cpf, other.cpf);
+    }
+
 }

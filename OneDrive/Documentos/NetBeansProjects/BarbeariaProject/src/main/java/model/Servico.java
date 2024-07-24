@@ -5,6 +5,7 @@ import jakarta.persistence.GenerationType;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Servico implements Serializable {
@@ -49,7 +50,7 @@ public class Servico implements Serializable {
     @Lob
     private byte[] imagemServico;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "Pedido_Servicos", joinColumns = {
         @JoinColumn(name = "idServico")},
             inverseJoinColumns = {
@@ -151,6 +152,21 @@ public class Servico implements Serializable {
     @Override
     public String toString() {
         return nomeServico;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Servico other = (Servico) obj;
+        return Objects.equals(this.getNomeServico(), other.getNomeServico());
     }
 
 }

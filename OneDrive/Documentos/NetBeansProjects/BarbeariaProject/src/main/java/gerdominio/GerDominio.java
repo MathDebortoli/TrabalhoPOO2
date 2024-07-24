@@ -69,8 +69,6 @@ public class GerDominio {
         clidao.alterar(servico);
     }
     
-    
-
     public List listar(Class classe) throws ClassNotFoundException, SQLException {
         return gendao.listar(classe);
     }

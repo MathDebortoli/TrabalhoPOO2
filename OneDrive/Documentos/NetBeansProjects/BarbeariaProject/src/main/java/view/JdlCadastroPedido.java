@@ -3,12 +3,9 @@ package view;
 import gertarefas.GerInterfaceGrafica;
 import gertarefas.ItemPedidoAbstractTableModel;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Cliente;
 import model.Funcionario;
@@ -17,12 +14,14 @@ import model.Servico;
 
 public class JdlCadastroPedido extends javax.swing.JDialog {
 
-    ItemPedidoAbstractTableModel itemped;
+    private Pedido selecionado = null;
+    private ItemPedidoAbstractTableModel itemped;
 
     public JdlCadastroPedido(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
+        jButton6.setEnabled(false);
+
         itemped = new ItemPedidoAbstractTableModel();
         jTable1.setModel(itemped);
     }
@@ -32,17 +31,16 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        jFormattedTextField3 = new javax.swing.JFormattedTextField();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
         jLabel28 = new javax.swing.JLabel();
         jComboBox14 = new javax.swing.JComboBox<>();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jPanel7 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
@@ -83,12 +81,6 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel14.setText("Pago:");
 
-        try {
-            jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         buttonGroup1.add(jRadioButton5);
         jRadioButton5.setText("Sim");
 
@@ -100,30 +92,29 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         jLabel28.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel28.setText("Forma Pagamento:");
 
-        jComboBox14.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartão", "Pix", "Dinheiro" }));
+        jComboBox14.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cartão", "Pix", "Dinheiro", "Vazio" }));
+        jComboBox14.setSelectedIndex(3);
         jComboBox14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox14ActionPerformed(evt);
             }
         });
 
+        jDateChooser2.setDateFormatString("dd/MM/yyyy");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addGap(67, 67, 67))
-            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
-                        .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
@@ -135,7 +126,11 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
                                 .addComponent(jLabel28)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jComboBox14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel12)))
+                .addGap(67, 67, 67))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,15 +138,15 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addComponent(jLabel12)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addComponent(jFormattedTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jRadioButton5)
                     .addComponent(jRadioButton6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
                     .addComponent(jComboBox14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,7 +215,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
                         .addComponent(jComboBox11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,7 +249,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
 
         jButton4.setBackground(new java.awt.Color(51, 255, 204));
         jButton4.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton4.setText("Editar");
+        jButton4.setText("Selecionar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -331,14 +326,14 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
                         .addGap(182, 182, 182)
                         .addComponent(jLabel17))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(63, 63, 63)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(134, 134, 134)
+                                .addGap(146, 146, 146)
                                 .addComponent(jButton2)
-                                .addGap(30, 30, 30)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton4)
-                                .addGap(36, 36, 36)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton6))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -362,7 +357,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -393,34 +388,27 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         //Inserir Pedido
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = jDateChooser2.getDate();
+        boolean pago;
+        if (buttonGroup1.getSelection().getMnemonic() == 0) {
+            pago = true;
+        } else {
+            pago = false;
+        }
+        Cliente cli = (Cliente) jComboBox10.getSelectedItem();
+        Funcionario fun = (Funcionario) jComboBox13.getSelectedItem();
+        String formaPagamento = jComboBox14.getSelectedItem().toString();
+        List<Servico> lista = itemped.getList();
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falha ao Inserir! \nAdicione itens à Lista!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Pedido pedido = new Pedido(data, pago, formaPagamento, fun, cli, lista);
         try {
-            Date data = formato.parse(jFormattedTextField3.getText());
-            boolean pago;
-            if (buttonGroup1.getSelection().getMnemonic() == 0) {
-                pago = true;
-            } else {
-                pago = false;
-            }
-
-            Cliente cli = (Cliente) jComboBox10.getSelectedItem();
-            Funcionario fun = (Funcionario) jComboBox13.getSelectedItem();
-            String formaPagamento = jComboBox14.getSelectedItem().toString();
-            List<Servico> lista = itemped.getList();
-            if (lista.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Falha ao Inserir! \nAdicione itens à Lista!", "ERRO!", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            Pedido pedido = new Pedido(data, pago, formaPagamento, fun, cli, lista);
-            try {
-                GerInterfaceGrafica.getMyInstance().getGerDom().inserirPedido(pedido);
-                JOptionPane.showMessageDialog(this, "Pedido Inserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
-            } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(JdlCadastroFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            GerInterfaceGrafica.getMyInstance().getGerDom().inserirPedido(pedido);
+            JOptionPane.showMessageDialog(this, "Pedido Inserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -432,8 +420,49 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosNormal();
+        //Selecionar
+        limparCampos();
+        try {
+            selecionado = (Pedido) GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosSelecionado();
+        } catch (ClassCastException e) {
+            JOptionPane.showMessageDialog(this, "Voce Precisa Selecionar Por um Pedido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            jButton6.setEnabled(false);
+            jButton2.setEnabled(true);
+            return;
+        }
+
+        if (selecionado == null) {
+            JOptionPane.showMessageDialog(this, "Não foi Selecionado nenhum Pedido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            jButton6.setEnabled(false);
+            jButton2.setEnabled(true);
+            return;
+        }
+
+        jDateChooser2.setDate(selecionado.getDataPedido());
+        if (selecionado.getPago()) {
+            jRadioButton5.setSelected(true);
+            jRadioButton6.setSelected(false);
+        } else {
+            jRadioButton6.setSelected(true);
+            jRadioButton5.setSelected(false);
+        }
+        
+        jComboBox14.setSelectedItem(selecionado.getFormaPagamento());
+        jComboBox10.setSelectedItem(selecionado.getCliente());        
+        itemped.setLista(selecionado.getServicos());
+        jTable1.setModel(itemped);
+        jComboBox13.setSelectedItem(selecionado.getFuncionario());
+        jButton2.setEnabled(false);
+        jButton6.setEnabled(true);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void limparCampos() {
+        selecionado = null;
+        jDateChooser2.setDate(null);
+        jRadioButton6.setSelected(true);
+        jRadioButton5.setSelected(false);
+        jComboBox14.setSelectedIndex(3);
+    }
 
     private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
         // TODO add your handling code here:
@@ -474,13 +503,38 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        //Editar
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        Date data = jDateChooser2.getDate();
+        boolean pago;
+        if (buttonGroup1.getSelection().getMnemonic() == 0) {
+            pago = true;
+        } else {
+            pago = false;
+        }
+        Cliente cli = (Cliente) jComboBox10.getSelectedItem();
+        Funcionario fun = (Funcionario) jComboBox13.getSelectedItem();
+        String formaPagamento = jComboBox14.getSelectedItem().toString();
+        List<Servico> lista = itemped.getList();
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Falha ao Inserir! \nAdicione itens à Lista!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        Pedido pedido = new Pedido(selecionado.getIdPedido(), data, pago, formaPagamento, fun, cli, lista);
+        try {
+            GerInterfaceGrafica.getMyInstance().getGerDom().editarPedido(pedido);
+            JOptionPane.showMessageDialog(this, "Pedido Editado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            jButton6.setEnabled(false);
+            jButton2.setEnabled(true);
+            limparCampos();
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -490,7 +544,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> jComboBox11;
     private javax.swing.JComboBox<String> jComboBox13;
     private javax.swing.JComboBox<String> jComboBox14;
-    private javax.swing.JFormattedTextField jFormattedTextField3;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
