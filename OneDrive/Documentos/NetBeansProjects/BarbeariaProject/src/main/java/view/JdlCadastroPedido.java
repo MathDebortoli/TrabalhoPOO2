@@ -85,7 +85,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         jRadioButton5.setText("Sim");
 
         buttonGroup1.add(jRadioButton6);
-        jRadioButton6.setMnemonic(1);
+        jRadioButton6.setMnemonic('\u0001');
         jRadioButton6.setSelected(true);
         jRadioButton6.setText("Não");
 
@@ -389,6 +389,10 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
 
         //Inserir Pedido
         Date data = jDateChooser2.getDate();
+        if (jDateChooser2.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Data Inválida!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         boolean pago;
         if (buttonGroup1.getSelection().getMnemonic() == 0) {
             pago = true;
@@ -407,6 +411,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         try {
             GerInterfaceGrafica.getMyInstance().getGerDom().inserirPedido(pedido);
             JOptionPane.showMessageDialog(this, "Pedido Inserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            limparCampos();
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
         }
@@ -446,9 +451,9 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
             jRadioButton6.setSelected(true);
             jRadioButton5.setSelected(false);
         }
-        
+
         jComboBox14.setSelectedItem(selecionado.getFormaPagamento());
-        jComboBox10.setSelectedItem(selecionado.getCliente());        
+        jComboBox10.setSelectedItem(selecionado.getCliente());
         itemped.setLista(selecionado.getServicos());
         jTable1.setModel(itemped);
         jComboBox13.setSelectedItem(selecionado.getFuncionario());
@@ -461,6 +466,8 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         jDateChooser2.setDate(null);
         jRadioButton6.setSelected(true);
         jRadioButton5.setSelected(false);
+        itemped.setLista(null);
+        jTable1.setModel(itemped);
         jComboBox14.setSelectedIndex(3);
     }
 
@@ -506,6 +513,12 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         //Editar
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date data = jDateChooser2.getDate();
+
+        if (jDateChooser2.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Data Inválida!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         boolean pago;
         if (buttonGroup1.getSelection().getMnemonic() == 0) {
             pago = true;
@@ -516,6 +529,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         Funcionario fun = (Funcionario) jComboBox13.getSelectedItem();
         String formaPagamento = jComboBox14.getSelectedItem().toString();
         List<Servico> lista = itemped.getList();
+
         if (lista.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Falha ao Inserir! \nAdicione itens à Lista!", "ERRO!", JOptionPane.ERROR_MESSAGE);
             return;

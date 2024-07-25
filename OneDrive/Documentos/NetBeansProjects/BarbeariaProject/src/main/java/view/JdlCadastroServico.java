@@ -5,7 +5,6 @@ import gertarefas.GerInterfaceGrafica;
 import java.sql.SQLException;
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.Funcionario;
 import model.Servico;
 
 public class JdlCadastroServico extends javax.swing.JDialog {
@@ -444,6 +443,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nEditado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
             jButton7.setEnabled(true);
             jButton6.setEnabled(false);
+            limparCampos();
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Falha ao Editar! \n" + ex.getMessage(), "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -458,6 +458,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
 
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //Selecionar
         try {
             selecionado = (Servico) GerInterfaceGrafica.getMyInstance().abrirJanGenCadastrosSelecionado();
         } catch (ClassCastException e) {
@@ -522,6 +523,7 @@ public class JdlCadastroServico extends javax.swing.JDialog {
         try {
             GerInterfaceGrafica.getMyInstance().getGerDom().inserirServico(servico);
             JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            limparCampos();
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         }

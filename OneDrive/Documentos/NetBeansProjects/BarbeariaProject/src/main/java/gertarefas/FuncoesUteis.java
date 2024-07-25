@@ -2,11 +2,13 @@ package gertarefas;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class FuncoesUteis {
 
@@ -36,5 +38,16 @@ public class FuncoesUteis {
             return bFile;
         }
 
+    }
+
+    public static ImageIcon byteArrayToImageIcon(byte[] imageBytes) {
+        try {
+            ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
+            BufferedImage bufferedImage = ImageIO.read(bais);
+            return new ImageIcon(bufferedImage);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

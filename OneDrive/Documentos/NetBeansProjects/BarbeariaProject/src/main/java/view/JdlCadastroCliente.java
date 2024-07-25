@@ -2,15 +2,16 @@ package view;
 
 import gertarefas.FuncoesUteis;
 import gertarefas.GerInterfaceGrafica;
+import java.awt.Image;
+import java.io.File;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.text.DateFormatter;
-import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import model.Cliente;
 
 public class JdlCadastroCliente extends javax.swing.JDialog {
@@ -39,7 +40,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jTeNome = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jftNascimento = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -48,6 +48,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jtfCpf = new javax.swing.JFormattedTextField();
         jLabel13 = new javax.swing.JLabel();
         jTfTelefone = new javax.swing.JFormattedTextField();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -86,12 +87,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel2.setText("Nascimento:");
 
-        try {
-            jftNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel3.setText("Sexo:");
 
@@ -129,6 +124,8 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             ex.printStackTrace();
         }
 
+        jDateChooser1.setDateFormatString("dd/MM/yyyy");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -153,14 +150,14 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jftNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jTeNome, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,11 +168,11 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTeNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(jftNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jRadioButton1)
@@ -273,7 +270,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,6 +291,11 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jButton5.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jButton5.setText("Excluir");
         jButton5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
         jLabel17.setText("Cadastro de Cliente");
@@ -336,7 +338,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -381,7 +383,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -420,39 +422,55 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextCidadeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //jButton7.setEnabled(false);
+        JFileChooser jan = new JFileChooser();
+
+        jan.setAcceptAllFileFilterUsed(false);
+        jan.setFileFilter(new FileNameExtensionFilter("Imagens (*.jpg, *.png)", "jpg", "png", "gif", "bmp"));
+        jan.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo texto", "txt"));
+
+        jan.setCurrentDirectory(new File("C:\\Users\\franc\\OneDrive\\Documentos\\NetBeansProjects\\BarbeariaProject\\src\\main\\resources\\fotos"));
+
+        if (jan.showOpenDialog(jan) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = jan.getSelectedFile();
+            Icon imagem = new ImageIcon(arquivo.getAbsolutePath());
+            mostrarFoto(imagem);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void mostrarFoto(Icon ic) {
+        ImageIcon imagem = (ImageIcon) ic;
+        imagem.setImage(imagem.getImage().getScaledInstance(jLabel12.getWidth(), jLabel12.getHeight(), Image.SCALE_DEFAULT));
+
+        jLabel12.setText("");
+        jLabel12.setIcon(imagem);
+    }
+
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        char sexo;
+        String nome = jTeNome.getText();
+        Date nascimento = jDateChooser1.getDate();
+        if (jDateChooser1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Data Inválida!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (buttonGroup1.getSelection().getMnemonic() == 1) {
+            sexo = 'm';
+        } else {
+            sexo = 'f';
+        }
+        String cpf = jtfCpf.getText();
+        String telefone = jTfTelefone.getText();
+        String cidade = jTextCidade1.getText();
+        String bairro = jTextBairro.getText();
+        String estado = jTextCidade.getText();
+        byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
+        Cliente cliente = new Cliente(telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
         try {
-            //Salvar
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            char sexo;
-            String nome = jTeNome.getText();
-            Date nascimento = formato.parse(jftNascimento.getText());
-            if (buttonGroup1.getSelection().getMnemonic() == 1) {
-                sexo = 'm';
-            } else {
-                sexo = 'f';
-            }
-            String cpf = jtfCpf.getText();
-            String telefone = jTfTelefone.getText();
-            String cidade = jTextCidade1.getText();
-            String bairro = jTextBairro.getText();
-            String estado = jTextCidade.getText();
-            byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
-
-            Cliente cliente = new Cliente(telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
-            try {
-                GerInterfaceGrafica.getMyInstance().getGerDom().inserirCliente(cliente);
-                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nInserido com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                limparCampos();
-            } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            }
-
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(this, "Erro nos dados. " + ex.getMessage(), "ERRO Cadastro Cliente", JOptionPane.ERROR_MESSAGE);
+            GerInterfaceGrafica.getMyInstance().getGerDom().inserirCliente(cliente);
+            JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nInserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            limparCampos();
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Falha ao Inserir! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -472,12 +490,8 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
             return;
         }
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        DateFormatter df = new DateFormatter(sdf);
-        jftNascimento.setFormatterFactory(new DefaultFormatterFactory(df));
-
         // Agora você pode definir o texto formatado
-        jftNascimento.setText(sdf.format(selecionado.getDataNascimento()));
+        jDateChooser1.setDate(selecionado.getDataNascimento());
 
         jTeNome.setText(selecionado.getNome());
         if (selecionado.getSexo() == 'm') {
@@ -494,42 +508,43 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jTextCidade.setText(selecionado.getEstado());
         jTextCidade1.setText(selecionado.getCidade());
         jTextBairro.setText(selecionado.getBairro());
+        
+        jLabel12.setIcon(FuncoesUteis.byteArrayToImageIcon(selecionado.getFoto()));
 
         jButton3.setEnabled(true);
         jButton6.setEnabled(false);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        //Editar
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        char sexo;
+        String nome = jTeNome.getText();
+        Date nascimento = jDateChooser1.getDate();
+        if (jDateChooser1.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Data Inválida!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (buttonGroup1.getSelection().getMnemonic() == 1) {
+            sexo = 'm';
+        } else {
+            sexo = 'f';
+        }
+        String cpf = jtfCpf.getText();
+        String telefone = jTfTelefone.getText();
+        String cidade = jTextCidade1.getText();
+        String bairro = jTextBairro.getText();
+        String estado = jTextCidade.getText();
+        byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
+        Cliente cliente = new Cliente(selecionado.getId(), telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
         try {
-            //Editar
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-            char sexo;
-            String nome = jTeNome.getText();
-            Date nascimento = formato.parse(jftNascimento.getText());
-            if (buttonGroup1.getSelection().getMnemonic() == 1) {
-                sexo = 'm';
-            } else {
-                sexo = 'f';
-            }
-            String cpf = jtfCpf.getText();
-            String telefone = jTfTelefone.getText();
-            String cidade = jTextCidade1.getText();
-            String bairro = jTextBairro.getText();
-            String estado = jTextCidade.getText();
-            byte foto[] = FuncoesUteis.IconToBytes(jLabel12.getIcon());
-
-            Cliente cliente = new Cliente(selecionado.getId(), telefone, nome, cpf, nascimento, sexo, foto, cidade, bairro, estado);
-            try {
-                GerInterfaceGrafica.getMyInstance().getGerDom().editarCliente(cliente);
-                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nEditado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
-                jButton3.setEnabled(false);
-                jButton6.setEnabled(true);
-                limparCampos();
-            } catch (ClassNotFoundException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Editar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (ParseException ex) {
-            Logger.getLogger(JdlCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            GerInterfaceGrafica.getMyInstance().getGerDom().editarCliente(cliente);
+            JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nEditado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            jButton3.setEnabled(false);
+            jButton6.setEnabled(true);
+            limparCampos();
+        } catch (ClassNotFoundException | SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Falha ao Editar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -542,16 +557,23 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jTextCidade.setText("");
         jTextCidade1.setText("");
         jTextBairro.setText("");
-
-        // Agora você pode definir o texto formatado
-        jftNascimento.setText("");
-
+        jDateChooser1.setDate(null);
+        limparFoto();
     }
 
     private void jTextCidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidade1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextCidade1ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        limparFoto();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void limparFoto() {
+        String caminhoImagem = "imagens/perfil.png";
+        ImageIcon imagemIcon = new ImageIcon(getClass().getClassLoader().getResource(caminhoImagem));
+        jLabel12.setIcon(imagemIcon);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -560,6 +582,7 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -584,7 +607,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     private javax.swing.JTextField jTextCidade;
     private javax.swing.JTextField jTextCidade1;
     private javax.swing.JFormattedTextField jTfTelefone;
-    private javax.swing.JFormattedTextField jftNascimento;
     private javax.swing.JFormattedTextField jtfCpf;
     // End of variables declaration//GEN-END:variables
 }

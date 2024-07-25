@@ -30,7 +30,7 @@ public class Servico implements Serializable {
     private String nomeServico;
 
     @Column
-    private double tempoMedio;
+    private int tempoMedio;
 
     @Column
     private boolean tesoura;
@@ -60,7 +60,7 @@ public class Servico implements Serializable {
     public Servico() {
     }
 
-    public Servico(String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, double tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
+    public Servico(String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, int tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
         this.tipo = tipo;
         this.cabeloPreferencial = cabeloPreferencial;
         this.quimica = quimica;
@@ -76,7 +76,7 @@ public class Servico implements Serializable {
         this.pedidos = pedidos;
     }
 
-    public Servico(int id, String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, double tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
+    public Servico(int id, String tipo, String cabeloPreferencial, boolean quimica, double preco, String nomeServico, int tempoMedio, boolean tesoura, boolean maquina, boolean shampoo, boolean condicionador, boolean navalha, byte[] imagemServico, List<Pedido> pedidos) {
         this.idServico = id;
         this.tipo = tipo;
         this.cabeloPreferencial = cabeloPreferencial;
@@ -137,7 +137,7 @@ public class Servico implements Serializable {
         return nomeServico;
     }
 
-    public double getTempoMedio() {
+    public int getTempoMedio() {
         return tempoMedio;
     }
 
