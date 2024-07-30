@@ -36,6 +36,10 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         funTableModel = new FuncionarioAbstractTableModel();
 
         jTable1.setModel(cliTableModel);
+        jButton7.setEnabled(false);
+        jButton9.setEnabled(false);
+        jButton10.setEnabled(false);
+
     }
 
     /**
@@ -67,6 +71,7 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -94,11 +99,6 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         jRadioButton2.setFont(new java.awt.Font("Segoe UI Black", 3, 14)); // NOI18N
         jRadioButton2.setMnemonic('\u0002');
         jRadioButton2.setText("Serviço");
-        jRadioButton2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jRadioButton2ItemStateChanged(evt);
-            }
-        });
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
@@ -265,6 +265,15 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             }
         });
 
+        jButton10.setBackground(new java.awt.Color(255, 153, 204));
+        jButton10.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton10.setText("Pagamento");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -276,7 +285,8 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -315,8 +325,10 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,36 +362,35 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         List lista = null;
 
         //Cliente
-        if (buttonGroup1.getSelection().getMnemonic() == 1) {
-            try {
-                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Cliente.class);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+        switch (buttonGroup1.getSelection().getMnemonic()) {
+            case 1 -> {
+                try {
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Cliente.class);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }   cliTableModel.setLista(lista);
             }
-            cliTableModel.setLista(lista);
-
-        } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
-            try {
-                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Servico.class);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+            case 2 -> {
+                try {
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Servico.class);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }   serTableModel.setLista(lista);
             }
-            serTableModel.setLista(lista);
-
-        } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
-            try {
-                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Funcionario.class);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+            case 3 -> {
+                try {
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Funcionario.class);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }   funTableModel.setLista(lista);
             }
-            funTableModel.setLista(lista);
-        } else {
-            try {
-                lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Pedido.class);
-            } catch (ClassNotFoundException | SQLException ex) {
-                Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+            default -> {
+                try {
+                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Pedido.class);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                }   pedTableModel.setLista(lista);
             }
-            pedTableModel.setLista(lista);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -410,20 +421,24 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             this.dispose();
         }
 
-        if (buttonGroup1.getSelection().getMnemonic() == 2) {
-            obj = serTableModel.getServico(linha);
-            selecionado = obj;
-            this.dispose();
-
-        } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
-            obj = funTableModel.getFuncionario(linha);
-            selecionado = obj;
-            this.dispose();
-
-        } else if (buttonGroup1.getSelection().getMnemonic() == 4) {
-            obj = pedTableModel.getPedido(linha);
-            selecionado = obj;
-            this.dispose();
+        switch (buttonGroup1.getSelection().getMnemonic()) {
+            case 2 -> {
+                obj = serTableModel.getServico(linha);
+                selecionado = obj;
+                this.dispose();
+            }
+            case 3 -> {
+                obj = funTableModel.getFuncionario(linha);
+                selecionado = obj;
+                this.dispose();
+            }
+            case 4 -> {
+                obj = pedTableModel.getPedido(linha);
+                selecionado = obj;
+                this.dispose();
+            }
+            default -> {
+            }
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -431,7 +446,9 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         serTableModel.setLista(null);
         jTable1.setModel(serTableModel);
         jButton9.setEnabled(false);
+        jButton8.setEnabled(true);
         jButton7.setEnabled(true);
+        jButton10.setEnabled(false);
 
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
@@ -439,15 +456,19 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         cliTableModel.setLista(null);
         jTable1.setModel(cliTableModel);
         jButton9.setEnabled(false);
+        jButton8.setEnabled(true);
         jButton7.setEnabled(false);
+        jButton10.setEnabled(false);
+
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton4ActionPerformed
         pedTableModel.setLista(null);
         jTable1.setModel(pedTableModel);
         jButton9.setEnabled(false);
-        jButton7.setEnabled(true);
-
+        jButton7.setEnabled(false);
+        jButton8.setEnabled(false);
+        jButton10.setEnabled(true);
     }//GEN-LAST:event_jRadioButton4ActionPerformed
 
     private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
@@ -455,7 +476,8 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
         jTable1.setModel(funTableModel);
         jButton9.setEnabled(true);
         jButton7.setEnabled(false);
-
+        jButton8.setEnabled(true);
+        jButton10.setEnabled(false);
     }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -474,89 +496,158 @@ public class JdlGerenciarCadastros extends javax.swing.JDialog {
             return;
         }
 
-        if (buttonGroup1.getSelection().getMnemonic() == 1) {
-            Cliente cliente = cliTableModel.getCliente(linha);
-            try {
-                GerInterfaceGrafica.getMyInstance().getGerDom().excluirCliente(cliente);
-                JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+        switch (buttonGroup1.getSelection().getMnemonic()) {
+            case 1 -> {
+                Cliente cliente = cliTableModel.getCliente(linha);
                 try {
-                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Cliente.class);
-                    cliTableModel.setLista(lista);
+                    GerInterfaceGrafica.getMyInstance().getGerDom().excluirCliente(cliente);
+                    JOptionPane.showMessageDialog(this, "Cliente: " + cliente.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                    try {
+                        lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Cliente.class);
+                        cliTableModel.setLista(lista);
+                    } catch (ClassNotFoundException | HibernateException | SQLException ex) {
+                        Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
-
-        } else if (buttonGroup1.getSelection().getMnemonic() == 2) {
-            Servico servico = serTableModel.getServico(linha);
-            try {
-                GerInterfaceGrafica.getMyInstance().getGerDom().excluirServico(servico);
-                JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            case 2 -> {
+                Servico servico = serTableModel.getServico(linha);
                 try {
-                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Servico.class);
-                    serTableModel.setLista(lista);
+                    GerInterfaceGrafica.getMyInstance().getGerDom().excluirServico(servico);
+                    JOptionPane.showMessageDialog(this, "Servico: " + servico.getNomeServico() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                    try {
+                        lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Servico.class);
+                        serTableModel.setLista(lista);
+                    } catch (ClassNotFoundException | HibernateException | SQLException ex) {
+                        Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
-
-        } else if (buttonGroup1.getSelection().getMnemonic() == 3) {
-            Funcionario funcionario = funTableModel.getFuncionario(linha);
-            try {
-                GerInterfaceGrafica.getMyInstance().getGerDom().excluirFuncionario(funcionario);
-                JOptionPane.showMessageDialog(this, "Funcionario: " + funcionario.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            case 3 -> {
+                Funcionario funcionario = funTableModel.getFuncionario(linha);
                 try {
-                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Funcionario.class);
-                    funTableModel.setLista(lista);
+                    GerInterfaceGrafica.getMyInstance().getGerDom().excluirFuncionario(funcionario);
+                    JOptionPane.showMessageDialog(this, "Funcionario: " + funcionario.getNome() + "\nDeletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                    try {
+                        lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Funcionario.class);
+                        funTableModel.setLista(lista);
+                    } catch (ClassNotFoundException | HibernateException | SQLException ex) {
+                        Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
-
-        } else {
-            Pedido pedido = pedTableModel.getPedido(linha);
-            try {
-                GerInterfaceGrafica.getMyInstance().getGerDom().excluirPedido(pedido);
-                JOptionPane.showMessageDialog(this, "Pedido Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+            default -> {
+                Pedido pedido = pedTableModel.getPedido(linha);
                 try {
-                    lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Pedido.class);
-                    pedTableModel.setLista(lista);
+                    GerInterfaceGrafica.getMyInstance().getGerDom().excluirPedido(pedido);
+                    JOptionPane.showMessageDialog(this, "Pedido Deletado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
+                    try {
+                        lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Pedido.class);
+                        pedTableModel.setLista(lista);
+                    } catch (ClassNotFoundException | HibernateException | SQLException ex) {
+                        Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                    Logger.getLogger(JdlGerenciarCadastros.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (ClassNotFoundException | HibernateException | SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Falha ao Deletar! \n" + ex.getMessage(), "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        //Preço
+        List lista = null;
+
+        if (validarCampo()) {
+            JOptionPane.showMessageDialog(this, "Preencha o Campo de Pesquisa de Forma Válida!!!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        if (buttonGroup1.getSelection().getMnemonic() == 2) {
+            lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarPrecoServico(jTextField1.getText());
+            serTableModel.setLista(lista);
+            jTable1.setModel(serTableModel);
+        }
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        List lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarCliente("Pedro");
-        cliTableModel.setLista(lista);
-        jTable1.setModel(cliTableModel);
+        //Nome
+        List lista = null;
+
+        if (validarCampo()) {
+            JOptionPane.showMessageDialog(this, "Preencha o Campo de Pesquisa de Forma Válida!!!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        switch (buttonGroup1.getSelection().getMnemonic()) {
+            case 1 -> {
+                lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarNomeCliente(jTextField1.getText());
+                cliTableModel.setLista(lista);
+                jTable1.setModel(cliTableModel);
+            }
+            case 2 -> {
+                lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarNomeServico(jTextField1.getText());
+                serTableModel.setLista(lista);
+                jTable1.setModel(serTableModel);
+            }
+            case 3 -> {
+                lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarNomeFuncionario(jTextField1.getText());
+                funTableModel.setLista(lista);
+                jTable1.setModel(funTableModel);
+            }
+            default -> {
+            }
+        }
+
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        //Salário
+        List lista = null;
+
+        if (validarCampo()) {
+            JOptionPane.showMessageDialog(this, "Preencha o Campo de Pesquisa de Forma Válida!!!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (buttonGroup1.getSelection().getMnemonic() == 3) {
+            lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarSalarioFuncionario(jTextField1.getText());
+            funTableModel.setLista(lista);
+            jTable1.setModel(funTableModel);
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    private void jRadioButton2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jRadioButton2ItemStateChanged
-    }//GEN-LAST:event_jRadioButton2ItemStateChanged
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        List lista = null;
+        //Pagamento 
 
+        if (validarCampo()) {
+            JOptionPane.showMessageDialog(this, "Preencha o Campo de Pesquisa de Forma Válida!!!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (buttonGroup1.getSelection().getMnemonic() == 4) {
+            lista = GerInterfaceGrafica.getMyInstance().getGerDom().pesquisarPagamentoPedido(jTextField1.getText());
+            pedTableModel.setLista(lista);
+            jTable1.setModel(pedTableModel);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private boolean validarCampo() {
+        return jTextField1.getText() == null || jTextField1.getText().equals("") || jTextField1.getText().contains(",");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;

@@ -78,12 +78,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel1.setText("Nome:");
 
-        jTeNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTeNomeActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel2.setText("Nascimento:");
 
@@ -94,11 +88,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jRadioButton1.setMnemonic('\u0001');
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Masculino");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("Feminino");
@@ -205,24 +194,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel9.setText("Bairro:");
 
-        jTextCidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextCidadeActionPerformed(evt);
-            }
-        });
-
-        jTextBairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextBairroActionPerformed(evt);
-            }
-        });
-
-        jTextCidade1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextCidade1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -235,11 +206,12 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTextBairro)
-                        .addComponent(jTextCidade1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                        .addComponent(jTextCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextCidade1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jTextCidade, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(72, 72, 72))
         );
         jPanel3Layout.setVerticalGroup(
@@ -407,21 +379,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTeNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTeNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTeNomeActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-     }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jTextBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextBairroActionPerformed
-
-    }//GEN-LAST:event_jTextBairroActionPerformed
-
-    private void jTextCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextCidadeActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JFileChooser jan = new JFileChooser();
 
@@ -533,7 +490,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //Editar
         
-            
         if(!validarCampos()){
             return;
         }
@@ -580,10 +536,6 @@ public class JdlCadastroCliente extends javax.swing.JDialog {
         jDateChooser1.setDate(null);
         limparFoto();
     }
-
-    private void jTextCidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidade1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextCidade1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         limparFoto();

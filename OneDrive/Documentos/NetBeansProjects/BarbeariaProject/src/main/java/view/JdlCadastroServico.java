@@ -96,21 +96,11 @@ public class JdlCadastroServico extends javax.swing.JDialog {
         buttonGroup1.add(jRadioButton1);
         jRadioButton1.setMnemonic('\u0001');
         jRadioButton1.setText("Sim");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setMnemonic('\u0002');
         jRadioButton2.setSelected(true);
         jRadioButton2.setText("Não");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Geral", "Liso", "Cacheado", "Crespo", "Químico" }));
 
@@ -191,11 +181,6 @@ public class JdlCadastroServico extends javax.swing.JDialog {
 
         jCheckBox1.setSelected(true);
         jCheckBox1.setText("Tesoura");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
 
         jCheckBox2.setSelected(true);
         jCheckBox2.setText("Máquina");
@@ -203,11 +188,6 @@ public class JdlCadastroServico extends javax.swing.JDialog {
         jCheckBox3.setText("Shampoo");
 
         jCheckBox4.setText("Condicionador");
-        jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox4ActionPerformed(evt);
-            }
-        });
 
         jCheckBox5.setText("Navalha");
 
@@ -418,29 +398,13 @@ public class JdlCadastroServico extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
-
-    private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox4ActionPerformed
-
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         //Editar
-        
-        if(!validarCampos()){
+
+        if (!validarCampos()) {
             return;
         }
-        
+
         String tipo = (String) jComboBox2.getSelectedItem();
         String cabpref = (String) jComboBox1.getSelectedItem();
         boolean quimica;
@@ -523,11 +487,11 @@ public class JdlCadastroServico extends javax.swing.JDialog {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         //Inserir
-        
-        if(!validarCampos()){
+
+        if (!validarCampos()) {
             return;
         }
-        
+
         String tipo = (String) jComboBox2.getSelectedItem();
         String cabpref = (String) jComboBox1.getSelectedItem();
         boolean quimica;

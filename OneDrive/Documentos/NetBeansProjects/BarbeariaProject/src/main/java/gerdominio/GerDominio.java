@@ -2,7 +2,10 @@ package gerdominio;
 
 import dao.ClienteDao;
 import dao.ConexaoHibernate;
+import dao.FuncionarioDao;
 import dao.GenericDao;
+import dao.PedidoDao;
+import dao.ServicoDao;
 import java.sql.SQLException;
 import java.util.List;
 import model.Cliente;
@@ -14,11 +17,17 @@ public class GerDominio {
 
     private ClienteDao clidao;
     private GenericDao gendao;
+    private ServicoDao serdao;
+    private FuncionarioDao fundao;
+    private PedidoDao peddao;
 
     public GerDominio() {
         ConexaoHibernate.getSessionFactory();
         clidao = new ClienteDao();
         gendao = new GenericDao();
+        serdao = new ServicoDao();
+        fundao = new FuncionarioDao();
+        peddao = new PedidoDao();
     }
 
     public void inserirCliente(Cliente cliente) throws ClassNotFoundException, SQLException {
@@ -52,8 +61,8 @@ public class GerDominio {
     public void excluirServico(Servico servico) throws ClassNotFoundException, SQLException {
         clidao.excluir(servico);
     }
-    
-        public void editarPedido(Pedido pedido) throws ClassNotFoundException, SQLException {
+
+    public void editarPedido(Pedido pedido) throws ClassNotFoundException, SQLException {
         clidao.alterar(pedido);
     }
 
@@ -68,13 +77,33 @@ public class GerDominio {
     public void editarServico(Servico servico) throws ClassNotFoundException, SQLException {
         clidao.alterar(servico);
     }
-    
+
     public List listar(Class classe) throws ClassNotFoundException, SQLException {
         return gendao.listar(classe);
     }
 
-    public List<Cliente> pesquisarCliente(String pesq) {
+    public List<Cliente> pesquisarNomeCliente(String pesq) {
         return clidao.pesquisarPorNome(pesq);
+    }
+
+    public List<Servico> pesquisarNomeServico(String pesq) {
+        return serdao.pesquisarPorNome(pesq);
+    }
+
+    public List<Servico> pesquisarPrecoServico(String pesq) {
+        return serdao.pesquisarPorPreco(pesq);
+    }
+
+    public List<Funcionario> pesquisarNomeFuncionario(String pesq) {
+        return fundao.pesquisarPorNome(pesq);
+    }
+
+    public List<Funcionario> pesquisarSalarioFuncionario(String pesq) {
+        return fundao.pesquisarPorSalario(pesq);
+    }
+    
+    public List<Pedido> pesquisarPagamentoPedido(String pesq){
+        return peddao.pesquisarPorPagamento(pesq);
     }
 
 }

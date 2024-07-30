@@ -26,10 +26,10 @@ public abstract class Pessoa implements Serializable {
     @Column(length = 30)
     private String cidade;
 
-    @Column(length = 2)
+    @Column(length = 30)
     private String estado;
 
-    @Column
+    @Column(length = 30)
     private String bairro;
 
     @Column

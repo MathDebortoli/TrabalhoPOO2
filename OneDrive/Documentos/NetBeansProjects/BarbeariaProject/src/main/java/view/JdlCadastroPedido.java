@@ -490,11 +490,11 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         itemped.setLista(null);
         jTable1.setModel(itemped);
         jComboBox14.setSelectedIndex(3);
-        
+
         String caminhoImagem = "imagens/perfil.png";
         ImageIcon imagemIcon = new ImageIcon(getClass().getClassLoader().getResource(caminhoImagem));
         jLabel11.setIcon(imagemIcon);
-        
+
     }
 
     private void jComboBox13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox13ActionPerformed
@@ -541,8 +541,8 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
         //Editar
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         Date data = jDateChooser2.getDate();
-        
-        if(!validarCampos()){
+
+        if (!validarCampos()) {
             return;
         }
 

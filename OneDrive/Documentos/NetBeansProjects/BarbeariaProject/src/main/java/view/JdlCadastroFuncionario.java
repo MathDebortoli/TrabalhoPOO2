@@ -82,12 +82,6 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel1.setText("Nome:");
 
-        jTeNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTeNomeActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel2.setText("Nascimento:");
 
@@ -98,11 +92,6 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
         jRadioButton1.setMnemonic('\u0001');
         jRadioButton1.setSelected(true);
         jRadioButton1.setText("Masculino");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
 
         buttonGroup1.add(jRadioButton2);
         jRadioButton2.setMnemonic('\u0002');
@@ -122,12 +111,6 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel14.setText("Salário:");
-
-        jTeSalario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTeSalarioActionPerformed(evt);
-            }
-        });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 2, 12)); // NOI18N
         jLabel8.setText("Início Contrato:");
@@ -242,24 +225,6 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
         jLabel9.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jLabel9.setText("Bairro:");
 
-        jTextEstado.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextEstadoActionPerformed(evt);
-            }
-        });
-
-        jTextCidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextCidadeActionPerformed(evt);
-            }
-        });
-
-        jTextBairro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextBairroActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -278,7 +243,7 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(99, 99, 99))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(107, 107, 107)
@@ -453,26 +418,6 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTeNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTeNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTeNomeActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
-
-    private void jTextEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextEstadoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextEstadoActionPerformed
-
-    private void jTextBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextBairroActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextBairroActionPerformed
-
-    private void jTextCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextCidadeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JFileChooser jan = new JFileChooser();
@@ -661,10 +606,6 @@ public class JdlCadastroFuncionario extends javax.swing.JDialog {
         jDateChooser3.setDate(null);
         limparFoto();
     }
-
-    private void jTeSalarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTeSalarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTeSalarioActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         limparFoto();
