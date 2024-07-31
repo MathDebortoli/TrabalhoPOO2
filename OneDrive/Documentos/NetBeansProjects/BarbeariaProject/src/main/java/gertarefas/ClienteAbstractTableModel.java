@@ -55,10 +55,10 @@ public class ClienteAbstractTableModel extends AbstractTableModel {
                 null;
         };
     }
+
     public void adicionar(Cliente item) {
         listaItens.add(item);
         fireTableRowsInserted(listaItens.size() - 1, listaItens.size() - 1);
-
     }
 
     public void remover(int indice) {
@@ -78,7 +78,5 @@ public class ClienteAbstractTableModel extends AbstractTableModel {
             listaItens = novaLista;
             fireTableRowsInserted(0, listaItens.size() - 1);
         }
-
     }
-
 }
