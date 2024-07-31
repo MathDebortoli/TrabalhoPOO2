@@ -22,10 +22,10 @@ import view.JdlSobreSistema;
 
 public class GerInterfaceGrafica {
 
-    private static GerInterfaceGrafica instance;
-    //Instancia Singleton
+    private static GerInterfaceGrafica instance = new GerInterfaceGrafica();
+    private GerenciadorRelatorios gerRel;  
+    private GerDominio gerDom;
 
-    private static GerDominio gerDom;
     private FrmInit frmprincipal = null;
 
     private JdlCadastroCliente cadcliente = null;
@@ -36,10 +36,13 @@ public class GerInterfaceGrafica {
     private JdlCadastroFuncionario cadfunc = null;
     private JdlGerenciarCadastros gercad = null;
 
+    private GerInterfaceGrafica() {
+        //JOptionPane.showMessageDialog(frmPrinc, "Construtor de IG" );
+        gerDom = new GerDominio();
+        gerRel = new GerenciadorRelatorios();
+    }
+
     public static GerInterfaceGrafica getMyInstance() {
-        if (instance == null) {
-            instance = new GerInterfaceGrafica();
-        }
         return instance;
     }
 
@@ -65,6 +68,10 @@ public class GerInterfaceGrafica {
 
     public GerDominio getGerDom() {
         return gerDom;
+    }
+    
+    public GerenciadorRelatorios getGerRel(){
+        return gerRel;
     }
 
     public void abrirJanCadPedido() {
@@ -134,8 +141,6 @@ public class GerInterfaceGrafica {
         //</editor-fold>
 
         /* Create and display the form */
-        instance = getMyInstance();
-        gerDom = new GerDominio();
-        instance.abrirJanPrincial();
+        GerInterfaceGrafica.getMyInstance().abrirJanPrincial();
     }
 }

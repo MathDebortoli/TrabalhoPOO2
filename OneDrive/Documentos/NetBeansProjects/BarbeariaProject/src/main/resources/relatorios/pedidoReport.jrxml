@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="700" pageHeight="842" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1f57ced7-dbc7-4bd3-808d-8efc01e932a2">
+	<property name="ireport.zoom" value="1.0000000000000002"/>
+	<property name="ireport.x" value="17"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{pago}==false]]></conditionExpression>
+			<style forecolor="#CC0000"/>
+		</conditionalStyle>
+	</style>
+	<style name="style2">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2==0]]></conditionExpression>
+			<style backcolor="#666666"/>
+		</conditionalStyle>
+	</style>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="class" class="java.lang.Class">
+		<fieldDescription><![CDATA[class]]></fieldDescription>
+	</field>
+	<field name="cliente" class="model.Cliente">
+		<fieldDescription><![CDATA[cliente]]></fieldDescription>
+	</field>
+	<field name="dataPedido" class="java.util.Date">
+		<fieldDescription><![CDATA[dataPedido]]></fieldDescription>
+	</field>
+	<field name="formaPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[formaPagamento]]></fieldDescription>
+	</field>
+	<field name="funcionario" class="model.Funcionario">
+		<fieldDescription><![CDATA[funcionario]]></fieldDescription>
+	</field>
+	<field name="idPedido" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idPedido]]></fieldDescription>
+	</field>
+	<field name="pago" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[pago]]></fieldDescription>
+	</field>
+	<field name="precoTotal" class="java.lang.Double">
+		<fieldDescription><![CDATA[precoTotal]]></fieldDescription>
+	</field>
+	<field name="servicos" class="java.util.List">
+		<fieldDescription><![CDATA[servicos]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement x="148" y="28" width="347" height="66" forecolor="#FF0000" uuid="4136d06e-d2b3-43c2-bf50-df65268b116d"/>
+				<textElement>
+					<font fontName="Arial Black" size="32"/>
+				</textElement>
+				<text><![CDATA[Barbearia Debortoli]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="50" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="55" splitType="Stretch">
+			<rectangle>
+				<reportElement x="77" y="35" width="497" height="20" uuid="d44d8791-ece1-4066-abc5-0bc82f2a905f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="77" y="35" width="43" height="20" uuid="8a7354f8-7f3b-4ab6-8d79-f39d54d0941b"/>
+				<textElement>
+					<font fontName="Arial Black" size="13"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="35" width="52" height="20" uuid="e17cf849-cd1a-4f8d-9af0-787fce7f57af"/>
+				<textElement>
+					<font fontName="Arial Black" size="13"/>
+				</textElement>
+				<text><![CDATA[Pago]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="172" y="35" width="91" height="20" uuid="4f8864c6-9770-4f34-b9d6-997af1c740f2"/>
+				<textElement>
+					<font fontName="Arial Black" size="13"/>
+				</textElement>
+				<text><![CDATA[Serviços]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="263" y="35" width="106" height="20" uuid="311bccb6-08f7-4cf9-9a79-f914a484fc25"/>
+				<textElement>
+					<font fontName="Arial Black" size="13"/>
+				</textElement>
+				<text><![CDATA[Funcionários]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="35" width="88" height="20" uuid="e8b6b531-838d-4f2a-b3bd-2a249c0e01be"/>
+				<textElement>
+					<font fontName="Arial Black" size="13"/>
+				</textElement>
+				<text><![CDATA[Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="35" width="59" height="20" uuid="14c4e530-5b15-4eca-8fbb-6cf40d9266b0"/>
+				<textElement>
+					<font fontName="Arial Black" size="13"/>
+				</textElement>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="516" y="35" width="58" height="20" uuid="51ccde55-ae98-4398-83d1-bf21f332b75d"/>
+				<textElement>
+					<font fontName="Arial Black" size="13"/>
+				</textElement>
+				<text><![CDATA[Preço]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement style="style2" x="77" y="0" width="497" height="20" forecolor="#000000" uuid="5eb0f54e-6002-4526-8c48-9872aedf932a"/>
+			</rectangle>
+			<textField>
+				<reportElement style="style1" x="77" y="0" width="43" height="20" uuid="227a1dca-69bc-4764-a46e-f68dccac423f"/>
+				<textFieldExpression><![CDATA[$F{idPedido}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="120" y="0" width="52" height="20" uuid="2b772739-8f13-416a-a569-750e5070b6c7"/>
+				<textFieldExpression><![CDATA[$F{pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="172" y="0" width="91" height="20" uuid="afd4c476-9524-419e-bc7d-6f85edec4190"/>
+				<textFieldExpression><![CDATA[""+$F{servicos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="263" y="0" width="106" height="20" uuid="16182c25-3139-48cd-8a71-f133e61b5c92"/>
+				<textFieldExpression><![CDATA[""+$F{funcionario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="369" y="0" width="88" height="20" uuid="a2e30c07-29f8-45cb-96c9-f45f9e08b5d4"/>
+				<textFieldExpression><![CDATA[$F{formaPagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="457" y="0" width="59" height="20" uuid="c5c4fd5e-8368-440b-8b0a-b0bb7cc0ea0d"/>
+				<textFieldExpression><![CDATA[""+$F{cliente}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="516" y="0" width="58" height="20" uuid="c9341b01-9457-4dee-bc65-a80e2b330e8d"/>
+				<textElement>
+					<font fontName="Arial Black" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{precoTotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="455" y="34" width="100" height="20" uuid="62ed1d66-293d-474f-ae2f-83225d416c23"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

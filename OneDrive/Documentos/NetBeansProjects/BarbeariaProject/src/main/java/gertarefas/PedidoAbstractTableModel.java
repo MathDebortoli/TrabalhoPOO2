@@ -46,7 +46,7 @@ public class PedidoAbstractTableModel extends AbstractTableModel {
             case 5 ->
                 item.getFuncionario();
             case 6 ->
-                "R$ " + item.calcTotal();
+                "R$ " + item.getPrecoTotal();
             default ->
                 null;
         };

@@ -416,6 +416,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
             return;
         }
         Pedido pedido = new Pedido(data, pago, formaPagamento, fun, cli, lista);
+        pedido.calcTotal();
         try {
             GerInterfaceGrafica.getMyInstance().getGerDom().inserirPedido(pedido);
             JOptionPane.showMessageDialog(this, "Pedido Inserido com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);
@@ -567,6 +568,7 @@ public class JdlCadastroPedido extends javax.swing.JDialog {
             return;
         }
         Pedido pedido = new Pedido(selecionado.getIdPedido(), data, pago, formaPagamento, fun, cli, lista);
+        pedido.calcTotal();
         try {
             GerInterfaceGrafica.getMyInstance().getGerDom().editarPedido(pedido);
             JOptionPane.showMessageDialog(this, "Pedido Editado com Sucesso!", "SUCESSO!", JOptionPane.INFORMATION_MESSAGE);

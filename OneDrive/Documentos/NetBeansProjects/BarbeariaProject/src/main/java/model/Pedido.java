@@ -24,6 +24,9 @@ public class Pedido implements Serializable {
     @Column
     private String formaPagamento;
 
+    @Column
+    private double precoTotal;
+
     @ManyToOne
     @JoinColumn(name = "idFuncionario", nullable = false)
     private Funcionario funcionario;
@@ -89,13 +92,17 @@ public class Pedido implements Serializable {
         return servicos;
     }
 
-    public double calcTotal() {
-        double preco = 0;
+    public void calcTotal() {
+        precoTotal = 0;
         for (Servico servico : servicos) {
-            preco += servico.getPreco();
+             precoTotal+= servico.getPreco();
         }
-        return preco;
     }
+
+    public double getPrecoTotal() {
+        return precoTotal;
+    }
+    
 
     @Override
     public boolean equals(Object obj) {

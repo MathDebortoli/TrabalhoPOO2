@@ -1,6 +1,11 @@
 package view;
 
 import gertarefas.GerInterfaceGrafica;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Pedido;
 
 public class FrmInit extends javax.swing.JFrame {
 
@@ -200,7 +205,13 @@ public class FrmInit extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        GerInterfaceGrafica.getMyInstance().abrirJanConsultarAgenda();
+        List lista = null;
+        try {
+            lista = GerInterfaceGrafica.getMyInstance().getGerDom().listar(Pedido.class);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(FrmInit.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        GerInterfaceGrafica.getMyInstance().getGerRel().relComLista(lista, "pedidoReport.jasper");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
