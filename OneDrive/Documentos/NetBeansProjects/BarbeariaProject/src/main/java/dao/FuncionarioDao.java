@@ -34,7 +34,7 @@ public class FuncionarioDao extends GenericDao {
                 case 2:
                      try {
                     double preco = Double.parseDouble(pesq);
-                    restricoes = builder.equal(tabela.get("salario"), preco);
+                    restricoes = builder.between(tabela.get("salario"), preco-1,preco+1);
                 } catch (NumberFormatException e) {
                     throw new HibernateException("O Salário deve ser um número válido.", e);
                 }

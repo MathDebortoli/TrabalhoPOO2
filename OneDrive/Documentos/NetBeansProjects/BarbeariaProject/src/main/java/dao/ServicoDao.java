@@ -34,7 +34,7 @@ public class ServicoDao extends GenericDao {
                 case 2:
                      try {
                     double preco = Double.parseDouble(pesq);
-                    restricoes = builder.equal(tabela.get("preco"), preco);
+                    restricoes = builder.between(tabela.get("preco"), preco-1,preco+1);
                 } catch (NumberFormatException e) {
                     throw new HibernateException("O valor do preço deve ser um número válido.", e);
                 }
