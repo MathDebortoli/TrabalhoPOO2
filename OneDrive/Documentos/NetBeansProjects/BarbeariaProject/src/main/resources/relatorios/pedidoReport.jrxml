@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" language="groovy" pageWidth="700" pageHeight="842" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1f57ced7-dbc7-4bd3-808d-8efc01e932a2">
 	<property name="ireport.zoom" value="1.0000000000000002"/>
-	<property name="ireport.x" value="17"/>
+	<property name="ireport.x" value="19"/>
 	<property name="ireport.y" value="0"/>
 	<style name="style1">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{pago}==false]]></conditionExpression>
-			<style forecolor="#CC0000"/>
+			<style forecolor="#FF0000"/>
 		</conditionalStyle>
 	</style>
 	<style name="style2">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2==0]]></conditionExpression>
-			<style backcolor="#666666"/>
+			<style backcolor="#0099CC"/>
 		</conditionalStyle>
 	</style>
 	<queryString>
@@ -50,13 +50,34 @@
 	</background>
 	<title>
 		<band height="94" splitType="Stretch">
+			<rectangle>
+				<reportElement x="77" y="0" width="497" height="94" forecolor="#0099CC" backcolor="#0099CC" uuid="9879c0da-b27a-4d0c-aec3-5e33c7294b5d"/>
+			</rectangle>
 			<staticText>
-				<reportElement x="148" y="28" width="347" height="66" forecolor="#FF0000" uuid="4136d06e-d2b3-43c2-bf50-df65268b116d"/>
+				<reportElement x="110" y="21" width="347" height="53" forecolor="#000000" uuid="4136d06e-d2b3-43c2-bf50-df65268b116d"/>
 				<textElement>
 					<font fontName="Arial Black" size="32"/>
 				</textElement>
 				<text><![CDATA[Barbearia Debortoli]]></text>
 			</staticText>
+			<image>
+				<reportElement x="481" y="0" width="148" height="94" uuid="7b0ab053-a512-4244-9562-4f7e9861e828"/>
+				<imageExpression><![CDATA["C:\\Users\\franc\\OneDrive\\Documentos\\NetBeansProjects\\BarbeariaProject\\src\\main\\resources\\imagens\\imagemInit.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="110" y="74" width="169" height="20" forecolor="#FFFFFF" uuid="2cfce15e-9cdf-4c3c-9fd8-63528122ffc2"/>
+				<textElement>
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[Data de Emissão do Relatório:]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="289" y="74" width="168" height="20" forecolor="#FFFFFF" uuid="14d43e96-5f51-4b4d-aa79-6d475b013592"/>
+				<textElement>
+					<font fontName="Arial Black"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -65,7 +86,7 @@
 	<columnHeader>
 		<band height="55" splitType="Stretch">
 			<rectangle>
-				<reportElement x="77" y="35" width="497" height="20" uuid="d44d8791-ece1-4066-abc5-0bc82f2a905f"/>
+				<reportElement x="77" y="35" width="497" height="20" backcolor="#0099CC" uuid="d44d8791-ece1-4066-abc5-0bc82f2a905f"/>
 			</rectangle>
 			<staticText>
 				<reportElement x="77" y="35" width="43" height="20" uuid="8a7354f8-7f3b-4ab6-8d79-f39d54d0941b"/>
@@ -162,9 +183,19 @@
 	<pageFooter>
 		<band height="54" splitType="Stretch">
 			<textField>
-				<reportElement x="455" y="34" width="100" height="20" uuid="62ed1d66-293d-474f-ae2f-83225d416c23"/>
+				<reportElement x="545" y="34" width="29" height="20" uuid="62ed1d66-293d-474f-ae2f-83225d416c23"/>
+				<textElement>
+					<font fontName="Arial Black"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="498" y="34" width="47" height="20" uuid="57874819-9d2e-421e-adb9-b79e12e9a01c"/>
+				<textElement>
+					<font fontName="Arial Black"/>
+				</textElement>
+				<text><![CDATA[Página:]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>

@@ -90,7 +90,7 @@ public class GerenciadorRelatorios {
 
                 // Criar uma janela MODAL e colocar o JasperView dentro dela
                 JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Relatório", true);
-                viewer.setSize(800, 600);
+                viewer.setSize(1000, 700);
                 viewer.setLocationRelativeTo(null);
                 viewer.getContentPane().add(jrViewer.getContentPane());
                 viewer.setVisible(true);
